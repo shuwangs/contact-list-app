@@ -18,6 +18,7 @@ CREATE TABLE contacts(
     phone_number VARCHAR(20) ,
     email VARCHAR(100) UNIQUE NOT NULL,
     notes TEXT,
+    is_emergency_contact BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
