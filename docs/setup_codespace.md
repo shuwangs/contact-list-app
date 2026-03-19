@@ -11,3 +11,4 @@ psql (PostgreSQL) XX.X
 
 3. Connect to the database
 `psql -h db -U postgres -d postgres`
+psql -h db -U postgres -f db/schema.sql
