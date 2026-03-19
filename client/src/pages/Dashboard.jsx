@@ -4,9 +4,9 @@ import ContactList from "../components/ContactList.jsx";
 
 const Dashboard = () => {
 	return (
-		<div>
+		<div className="flex flex-col ">
 			<h1>Contact list App</h1>
-			<div>
+			<div className="flex flex-row justify-center">
 				<SearchBar />
 				<button>Add Contact</button>
 			</div>
