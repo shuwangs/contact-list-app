@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContactCard = ({contact}) => {
+const ContactCard = ({ contact }) => {
 	return (
 		<div className="flex flex-row justify-around">
 			<div className="flex flex-row ">
