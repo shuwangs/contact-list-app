@@ -1,4 +1,4 @@
-import { pool } from "../db/db.js";
+import pool from "../db/db.js";
 
 export const addContact = async (
 	userId,
@@ -10,7 +10,7 @@ export const addContact = async (
 	isEmergencyContact,
 ) => {
 	const { rows } = await pool.query(
-		`INSERT INTO contact_db.contacts(user_id, first_name, last_name, phone_number, email, notes, is_emergency_contact) 
+		`INSERT INTO contact_app.contacts(user_id, first_name, last_name, phone_number, email, notes, is_emergency_contact) 
          VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
 		[
 			userId,
@@ -28,7 +28,7 @@ export const addContact = async (
 
 export const getContactsByUserId = async (userId) => {
 	const { rows } = await pool.query(
-		`SELECT * FROM contact_db.contacts WHERE user_id = $1`,
+		`SELECT * FROM contact_app.contacts WHERE user_id = $1`,
 		[userId],
 	);
 	console.log(rows);
@@ -37,7 +37,7 @@ export const getContactsByUserId = async (userId) => {
 
 export const deleteContact = async (contactId) => {
 	const { rows } = await pool.query(
-		`DELETE FROM contact_db.contacts WHERE id = $1`,
+		`DELETE FROM contact_app.contacts WHERE id = $1`,
 		[contactId],
 	);
 	console.log(rows);
@@ -54,7 +54,7 @@ export const updateContact = async (
 	isEmergencyContact,
 ) => {
 	const { rows } = await pool.query(
-		`UPDATE contact_db.contacts 
+		`UPDATE contact_app.contacts 
          SET first_name = $1, last_name = $2, phone_number = $3, email = $4, notes = $5, is_emergency_contact = $6
          WHERE id = $7`,
 		[

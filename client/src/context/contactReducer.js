@@ -30,19 +30,19 @@ export const contactReducer = (state, action) => {
 			return {
 				...state,
 				contacts: state.contacts.filter((contact) => {
-					return contact.id !== action.payload.id
+					return contact.id !== action.payload.id;
 				}),
 			};
 		case "SET_LOADING":
 			return {
 				...state,
 				loading: action.payload,
-			}
+			};
 		case "SET_ERROR":
 			return {
 				...state,
 				error: action.payload,
-			}
+			};
 
 		default:
 			throw new Error(`Unknown Action type: ${action.type}`);

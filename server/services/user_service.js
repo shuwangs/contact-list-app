@@ -13,7 +13,7 @@ export const getSingleUser = async (user_id) => {
 	const { rows } = await pool.query(
 		`
         SELECT * 
-        FROM users
+        FROM contact_app.users
         WHERE id = $1`,
 		[user_id],
 	);

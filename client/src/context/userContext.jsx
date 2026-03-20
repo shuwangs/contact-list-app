@@ -3,7 +3,7 @@ import { loginUser } from "../api/loginApi.js";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
