@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useReducer } from "react";
 
 export const initialContactState = {
 	contacts: [],
@@ -26,8 +26,25 @@ export const contactReducer = (state, action) => {
 					return contact.id === action.payload.id ? action.payload : contact;
 				}),
 			};
+		case "DELETE_CONTACT":
+			return {
+				...state,
+				contacts: state.contacts.filter((contact) => {
+					return contact.id !== action.payload.id
+				}),
+			};
+		case "SET_LOADING":
+			return {
+				...state,
+				loading: action.payload,
+			}
+		case "SET_ERROR":
+			return {
+				...state,
+				error: action.payload,
+			}
 
 		default:
-			throw new Error(`Unknow Action type: ${action.type}`);
+			throw new Error(`Unknown Action type: ${action.type}`);
 	}
 };

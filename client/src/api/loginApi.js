@@ -1,5 +1,5 @@
 export const loginUser = async (payload) => {
-	const result = fetch("/api/continue", {
+	const result = await fetch("/api/continue", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

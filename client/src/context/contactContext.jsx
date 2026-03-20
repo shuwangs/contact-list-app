@@ -4,19 +4,81 @@ import React, {
 	useContext,
 	createContext,
 	Children,
+	useReducer,
 } from "react";
+import { contactReducer, initialContactState } from "./contactReducer";
+import { getContacts, updateContactById, createContact, deleteContactById } from "../api/contactApi.js";
 
 const ContactContext = createContext();
 
 export const ContactProvider = ({ children }) => {
-	const [userContacts, setUserContacts] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState("");
+	const [state, dispatch] = useReducer(contactReducer, initialContactState);
+
+	const fetchContacts = async (userId) => {
+		try{
+			dispatch({type: "SET_LOADING", payload:true});
+			dispatch({type: "SET_ERROR", payload: ""})
+
+			const result = await getContacts(userId);
+			dispatch({type: "SET_CONTACTS",payload: result.data})
+		} catch(error) {
+			dispatch({type: "SET_ERROR", payload: error.message});
+		} finally {
+			dispatch({type: "SET_LOADING", payload: false})
+		}
+
+	}
+	const addNewContact = async (newContact) => {
+		try {
+			dispatch({type: "SET_LOADING", payload:true});
+			dispatch({type: "SET_ERROR"})
+			const result = await createContact(newContact);
+			dispatch({type: "ADD_CONTACT",payload: result.data})
+
+		} catch(error) {
+			dispatch({type: "SET_ERROR", payload: error.message});
+		} finally {
+			dispatch({type: "SET_LOADING", payload: false})
+		}
+	}
+	const editContact = async (contactId, updatedContact) => {
+		try {
+			dispatch({type: "SET_LOADING", payload:true});
+			dispatch({type: "SET_ERROR"})
+			const result = await updateContactById(contactId, updatedContact);
+			dispatch({type: "UPDATE_CONTACT",payload: result.data})
+
+		} catch(error) {
+			dispatch({type: "SET_ERROR", payload: error.message});
+		} finally {
+			dispatch({type: "SET_LOADING", payload: false})
+		}
+
+	}
+	const deleteContact = async (contactId, ) => {
+		try {
+			dispatch({type: "SET_LOADING", payload:true});
+			dispatch({type: "SET_ERROR"})
+			const result = await deleteContactById(contactId);
+			dispatch({type: "UPDATE_CONTACT", payload: result.data})
+
+		} catch(error) {
+			dispatch({type: "SET_ERROR", payload: error.message});
+		} finally {
+			dispatch({type: "SET_LOADING", payload: false})
+		}
+
+	}
+
 
 	const values = {
-		userContacts,
-		loading,
-		error,
+	    contacts: state.contacts,
+		loading: state.loading,
+		error: state.error,
+		fetchContacts,
+		addNewContact,
+		editContact,
+		deleteContact,
 	};
 
 	return (
