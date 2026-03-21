@@ -9,6 +9,17 @@ export const addContact = async (
 	notes,
 	isEmergencyContact,
 ) => {
+	console.log("in ContactService ...");
+			console.log("payload:", {
+			userId,
+			firstName,
+			lastName,
+			phoneNumber,
+			email,
+			notes,
+			isEmergencyContact,
+		});
+
 	const { rows } = await pool.query(
 		`INSERT INTO contact_app.contacts(user_id, first_name, last_name, phone_number, email, notes, is_emergency_contact) 
          VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
@@ -22,7 +33,7 @@ export const addContact = async (
 			isEmergencyContact,
 		],
 	);
-	console.log(rows);
+	console.log("in ContactService retuslt", rows);
 	return rows[0].id;
 };
 
@@ -31,7 +42,6 @@ export const getContactsByUserId = async (userId) => {
 		`SELECT * FROM contact_app.contacts WHERE user_id = $1`,
 		[userId],
 	);
-	console.log(rows);
 	return rows;
 };
 

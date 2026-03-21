@@ -22,6 +22,7 @@ export const createContact = async (newContact) => {
 		throw new Error("Add Contact failed.");
 	}
 	const data = await result.json();
+	console.log("In contactApi, creating contacts", data);
 	return data;
 };
 export const updateContactById = async (contactId, updatedContact) => {

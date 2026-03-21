@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/users/:userId", async (req, res) => {
     const userId = Number(req.params.userId);
-    console.log("In contactRoute, userId is: ", userId)
     if (isNaN(userId)) {
         return res.status(400).json({
         status: "fail",
@@ -15,7 +14,6 @@ router.get("/users/:userId", async (req, res) => {
 
     try {
         const result = await contactService.getContactsByUserId(userId);
-        console.log("In contactRoute, getContactsByUserId result: ", result);
         res.status(200).json({
             status: "success",
             data: result,
@@ -24,6 +22,37 @@ router.get("/users/:userId", async (req, res) => {
         res.status(500).json({
             status: "fail",
             message: error.message || "Internal Server Failure",
+        });
+    }
+});
+
+
+
+router.post("/", async (req, res) => {
+    console.log("In contactRoute...");
+    console.log("Request body is: ", req.body);
+
+    const { userId, firstName, lastName,  email,phoneNumber, isEemergencyContact, notes } = req.body;
+    // if (!firstName ) {
+    //     return res.status(400).json({
+    //         status: "fail",
+    //         message: "invalid request",
+    //     });
+    // }
+
+    try {
+        const result = await contactService.addContact( userId, firstName, lastName,  email,phoneNumber, isEemergencyContact, notes );
+        console.log("Add contact result: ", result);
+
+
+        res.status(201).json({
+            status: "success",
+            data: result,
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Internal Server Error",
         });
     }
 });

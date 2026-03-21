@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 
@@ -6,6 +6,7 @@ const ContactForm = () => {
 	const { currentUser } = useUser();
 	const { addNewContact, loading, error } = useContact();
 	const [formData, setFormData] = useState({
+		userId: currentUser,
 		firstName: "",
 		lastName: "",
 		email: "",
@@ -22,42 +23,63 @@ const ContactForm = () => {
 		}));
 	};
 
+	useEffect(() => {
+		console.log(formData);
+	}, [formData]);
 	return (
-		<div>
-			<form className="space-y-6">
-				<div className="flex flex-row gap-6">
+		<div className="fixed  w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
+			<form
+				onSubmit={() => addNewContact(formData)}
+				className="mx-auto max-w-2xl"
+			>
+				<div className="flex flex-row gap-6 ">
 					{/* First name */}
-					<div className="rounded-xl border-2px border-teal-200 bg-white shadow-sm">
+					<div className="rounded-xl border-2px border-[#8ee9dc] bg-white shadow-sm">
 						<label
 							htmlFor="firstName"
 							className="mb-3 block text-xl font-semibold text-teal-700"
 						>
 							First Name*
 						</label>
-						<input id="firstName" onChange={handleChange} />
+						<input
+							id="firstName"
+							name="firstName"
+							value={formData.firstName}
+							onChange={handleChange}
+						/>
 					</div>
 					{/* Last name */}
-					<div className="rounded-xl border-2px border-teal-200 bg-white shadow-sm">
+					<div className="rounded-xl border-2px border-[#8ee9dc] bg-white shadow-sm">
 						<label
 							htmlFor="lastName"
 							className="mb-3 block text-xl font-semibold text-teal-700"
 						>
 							Last Name
 						</label>
-						<input id="lastName" name="lastName" onChange={handleChange} />
+						<input
+							value={formData.lastName}
+							id="lastName"
+							name="lastName"
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
 				{/* Email */}
-				<div>
+				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="email">Email</label>
-					<input id="email" onChange={handleChange} />
+					<input id="email" name="email" onChange={handleChange} />
 				</div>
-				<div>
-					<label htmlFor="phone">Phone</label>
-					<input id="phone" onChange={handleChange} />
+				<div className="mb-3 block text-xl font-semibold text-teal-700">
+					<label htmlFor="phoneNumber">Phone</label>
+					<input
+						id="phoneNumber"
+						name="phoneNumber"
+						value={formData.phoneNumber}
+						onChange={handleChange}
+					/>
 				</div>
 
-				<div>
+				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="isEmergencyContact">
 						<input
 							id="isEmergencyContact"
@@ -69,16 +91,23 @@ const ContactForm = () => {
 						Emergency
 					</label>
 				</div>
-				<label htmlFor="notes">Note</label>
-				<textarea
-					id="notes"
-					name="notes"
-					value={formData.notes}
-					onChange={handleChange}
-				/>
+				<div className="mb-3 block text-xl font-semibold text-teal-700">
+					<label htmlFor="notes">Note</label>
+					<textarea
+						id="notes"
+						name="notes"
+						className="w-full rounded-2xl border border-[#8ee9dc] text-teal-500"
+						value={formData.notes}
+						onChange={handleChange}
+					/>
+				</div>
 
-				<button type="submit" disabled={loading}>
-					{loading ? "Adding..." : "Add Contact"}
+				<button
+					type="submit"
+					className="w-full rounded-2xl bg-[#2fcfcb] px-6 py-4 text-xl font-bold text-white"
+					disabled={loading}
+				>
+					{loading ? "Creating..." : "Create Contact ✓"}
 				</button>
 
 				{error && <p>{error}</p>}
