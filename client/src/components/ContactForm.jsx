@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
-
+import FormDiv from "./ui/FormDiv.jsx";
+import FormLabel from "./ui/FormLabel.jsx";
 const ContactForm = () => {
 	const { currentUser } = useUser();
 	const { addNewContact, loading, error } = useContact();
@@ -49,20 +50,18 @@ const ContactForm = () => {
 						/>
 					</div>
 					{/* Last name */}
-					<div className="rounded-xl border-2px border-[#8ee9dc] bg-white shadow-sm">
-						<label
-							htmlFor="lastName"
-							className="mb-3 block text-xl font-semibold text-teal-700"
-						>
+					<FormDiv className="bg-black">
+						<FormLabel htmlFor="lastName">
 							Last Name
-						</label>
+						</FormLabel>
+
 						<input
 							value={formData.lastName}
 							id="lastName"
 							name="lastName"
 							onChange={handleChange}
 						/>
-					</div>
+					</FormDiv>
 				</div>
 				{/* Email */}
 				<div className="mb-3 block text-xl font-semibold text-teal-700">
