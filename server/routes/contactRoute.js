@@ -33,17 +33,15 @@ router.post("/", async (req, res) => {
     console.log("Request body is: ", req.body);
 
     const { userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes } = req.body;
-    // if (!firstName ) {
-    //     return res.status(400).json({
-    //         status: "fail",
-    //         message: "invalid request",
-    //     });
-    // }
+    if (!firstName ) {
+        return res.status(400).json({
+            status: "fail",
+            message: "invalid request",
+        });
+    }
 
     try {
         const result = await contactService.addContact( userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes );
-        console.log("Add contact result: ", result);
-
 
         res.status(201).json({
             status: "success",
