@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     console.log("In contactRoute...");
     console.log("Request body is: ", req.body);
 
-    const { userId, firstName, lastName,  email,phoneNumber, isEemergencyContact, notes } = req.body;
+    const { userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes } = req.body;
     // if (!firstName ) {
     //     return res.status(400).json({
     //         status: "fail",
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
     // }
 
     try {
-        const result = await contactService.addContact( userId, firstName, lastName,  email,phoneNumber, isEemergencyContact, notes );
+        const result = await contactService.addContact( userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes );
         console.log("Add contact result: ", result);
 
 
