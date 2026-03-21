@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./context/userContext.jsx";
 import { ContactProvider } from "./context/contactContext.jsx";
+import ContactProfile from "./pages/ContactProfile.jsx";
 import LoginIn from "./pages/LoginPage.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import "./App.css";
@@ -15,6 +16,7 @@ function App() {
 						<Routes>
 							<Route path="/" element={<LoginIn />} />
 							<Route path="/dashboard" element={<Dashboard />} />
+							<Route path="/profile" element={<ContactProfile />} />
 						</Routes>
 					</div>
 				</ContactProvider>
