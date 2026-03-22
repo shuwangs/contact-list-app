@@ -4,13 +4,7 @@ import { useUser } from '../context/userContext.jsx';
 import ContactCard from "./ContactCard.jsx";
 
 const ContactList = () => {
-	const { contacts, fetchContacts, loading, error } = useContact();
-	const { currentUser } = useUser();
-
-	useEffect(() => {
-		fetchContacts(currentUser);
-		console.log("contacts are: ", contacts);
-	}, [currentUser]);
+	const { contacts, loading, error } = useContact();
 
 	if (loading) return <p>Loading contacts...</p>;
 	if (error) return <p>{error}</p>;

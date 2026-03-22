@@ -11,15 +11,19 @@ const Dashboard = () => {
 	useEffect(() => {
 		const loadContacts = async () => {
 			if (currentUser) {
-				await fetchContacts(currentUser);
+				console.log("In dashboard currentUserId: ", currentUser.id);
+
+				await fetchContacts(currentUser.id);
 			}
-			console.log("currentUserId: ", currentUser);
-			console.log("Contacts: ", contacts);
 		};
 
 		loadContacts();
+
 	}, [currentUser]);
 
+	useEffect(() => {
+		console.log("Contacts updated: ", contacts);
+	}, [contacts]);
 	return (
 		<div className="flex flex-col ">
 			<h1>Contact list App</h1>

@@ -11,5 +11,6 @@ export const loginUser = async (payload) => {
 		throw new Error("Login failed.");
 	}
 	const data = await result.json();
-	return data;
+	console.log("current user is: ", data);
+	return data.data;
 };

@@ -1,4 +1,5 @@
 export const getContacts = async (userId) => {
+	console.log("IN contactApi userId is: ", userId)
 	const result = await fetch(`/api/contacts/users/${userId}`);
 
 	if (!result.ok) {
