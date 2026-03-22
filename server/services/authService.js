@@ -6,13 +6,13 @@ export const registerUser = async (name, email) => {
 		[name, email],
 	);
 	console.log(rows);
-	return rows[0].id;
+	return rows[0];
 };
 
 export const getUserByEmail = async (email) => {
 	console.log("Server: getUserByEmail", email);
 
-	const {rows} = await pool.query(
+	const { rows } = await pool.query(
 		`SELECT * FROM contact_app.users WHERE email = $1`,
 		[email],
 	);
