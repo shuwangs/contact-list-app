@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { useContact } from "../context/contactContext.jsx";
+import { useUser } from '../context/userContext.jsx';
 import ContactCard from "./ContactCard.jsx";
 
 const ContactList = () => {
-	const { contacts, loading, error } = useContact();
+	const { contacts, fetchContacts, loading, error } = useContact();
+	const { currentUser } = useUser();
 
 	useEffect(() => {
+		fetchContacts(currentUser);
 		console.log("contacts are: ", contacts);
-	}, [contacts]);
+	}, [currentUser]);
 
 	if (loading) return <p>Loading contacts...</p>;
 	if (error) return <p>{error}</p>;

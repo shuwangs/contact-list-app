@@ -7,8 +7,8 @@ router.get("/users/:userId", async (req, res) => {
     const userId = Number(req.params.userId);
     if (isNaN(userId)) {
         return res.status(400).json({
-        status: "fail",
-        message: "Invalid userId",
+            status: "fail",
+            message: "Invalid userId",
         });
     }
 
@@ -32,8 +32,8 @@ router.post("/", async (req, res) => {
     console.log("In contactRoute...");
     console.log("Request body is: ", req.body);
 
-    const { userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes } = req.body;
-    if (!firstName ) {
+    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes } = req.body;
+    if (!firstName) {
         return res.status(400).json({
             status: "fail",
             message: "invalid request",
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
     }
 
     try {
-        const result = await contactService.addContact( userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes );
+        const result = await contactService.addContact(userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes);
 
         res.status(201).json({
             status: "success",
@@ -51,6 +51,41 @@ router.post("/", async (req, res) => {
         res.status(500).json({
             status: "fail",
             message: "Internal Server Error",
+        });
+    }
+});
+
+router.delete("/:contactId", async (req, res) => {
+    console.log("In contactRoute... ")
+    console.log("In contactRoute... ")
+
+    const contactId = Number(req.params.contactId);
+    if (isNaN(contactId)) {
+        return res.status(400).json({
+            status: "fail",
+            message: "Invalid contactId",
+        });
+    }
+
+    try {
+        const result = await contactService.deleteContact(contactId);
+        if (!result) {
+            return res.status(404).json({
+                status: "fail",
+                message: "User not Found in database",
+            });
+        }
+
+        res.status(200).json({
+            status: "success",
+            data: result,
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: error.message || "Internal Server Failure",
         });
     }
 });

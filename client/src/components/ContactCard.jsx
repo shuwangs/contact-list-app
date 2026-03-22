@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useContact } from "../context/contactContext";
+import { useUser } from "../context/userContext";
 const ContactCard = ({ contact }) => {
+	const { deleteContact } = useContact();
+	// const { currentUser } = useUser();
 	return (
 		<div className="flex flex-row justify-around">
 			<div className="flex flex-row ">
@@ -17,9 +20,9 @@ const ContactCard = ({ contact }) => {
 			</div>
 			<div className="flex flex-row justify-center items-center align-center gap-6">
 				<Link to="/profile">
-					<button>👀</button>
+					<button className="text-2xl">👀</button>
 				</Link>
-				<button>🗑️</button>
+				<button className="text-2xl" onClick={() => deleteContact(contact.id)}>🗑️</button>
 			</div>
 		</div>
 	);

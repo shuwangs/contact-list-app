@@ -63,7 +63,9 @@ export const ContactProvider = ({ children }) => {
 			dispatch({ type: "SET_LOADING", payload: true });
 			dispatch({ type: "SET_ERROR" });
 			const result = await deleteContactById(contactId);
-			dispatch({ type: "UPDATE_CONTACT", payload: result.data });
+			dispatch({ type: "DELETE_CONTACT", payload: result.data.id });
+
+			// await fetchContacts(currentUser);
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {

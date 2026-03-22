@@ -1,7 +1,7 @@
 import pool from "../db/db.js";
 
 export const addContact = async (
-	userId, firstName, lastName,  email,phoneNumber, isEmergencyContact, notes 
+	userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes
 ) => {
 	const { rows } = await pool.query(
 		`INSERT INTO contact_app.contacts(user_id, first_name, last_name, phone_number, email, notes, is_emergency_contact) 
@@ -22,8 +22,11 @@ export const getContactsByUserId = async (userId) => {
 };
 
 export const deleteContact = async (contactId) => {
+	console.log("In contact seervice...")
+	console.log("constact id ")
 	const { rows } = await pool.query(
-		`DELETE FROM contact_app.contacts WHERE id = $1`,
+		`DELETE FROM contact_app.contacts WHERE id = $1
+		RETURNING *`,
 		[contactId],
 	);
 	console.log(rows);

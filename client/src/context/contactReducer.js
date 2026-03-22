@@ -23,14 +23,14 @@ export const contactReducer = (state, action) => {
 			return {
 				...state,
 				contacts: state.contacts.map((contact) => {
-					return contact.id === action.payload.id ? action.payload : contact;
+					return contact.id === action.payload ? action.payload.id : contact;
 				}),
 			};
 		case "DELETE_CONTACT":
 			return {
 				...state,
 				contacts: state.contacts.filter((contact) => {
-					return contact.id !== action.payload.id;
+					return contact.id !== action.payload;
 				}),
 			};
 		case "SET_LOADING":
