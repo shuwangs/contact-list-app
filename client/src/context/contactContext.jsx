@@ -19,6 +19,7 @@ const ContactContext = createContext();
 export const ContactProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(contactReducer, initialContactState);
 	const { contacts, error, loading } = state;
+	const [selectedContact, setSeletedContact] = useState(null);
 	const fetchContacts = async (userId) => {
 		try {
 			dispatch({ type: "SET_LOADING", payload: true });
@@ -82,6 +83,7 @@ export const ContactProvider = ({ children }) => {
 		contacts: state.contacts,
 		loading: state.loading,
 		error: state.error,
+		selectedContact, setSeletedContact,
 		fetchContacts,
 		addNewContact,
 		editContact,

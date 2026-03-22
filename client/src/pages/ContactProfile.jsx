@@ -1,5 +1,6 @@
 
 import { Link, useParams } from 'react-router-dom'
+import { useContact } from '../context/contactContext';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
 const ContactProfile = () => {
@@ -11,10 +12,11 @@ const ContactProfile = () => {
         phoneNumber: "12345",
         notes: "asdg",
     };
-
+    const { selectedContact } = useContact();
     const { id } = useParams();
-    const fullName = `${mockContact.firstName} ${mockContact.lastName}`.trim();
-    const initial = mockContact.firstName?.[0]?.toUpperCase() || "?";
+    // const fullName = `${mockContact.firstName} ${mockContact.lastName}`.trim();
+
+    const initial = selectedContact.first_name?.[0]?.toUpperCase() || "?";
 
     return (
 
@@ -34,7 +36,7 @@ const ContactProfile = () => {
                 </div>
 
                 <div className=''>
-                    <h1 className="text-3xl font-bold text-black">{fullName}</h1>
+                    <h1 className="text-3xl font-bold text-black">{selectedContact.first_name} {selectedContact.last_name}</h1>
                     <p className="text-base font-medium text-black">
                         💝 Contact Details
                     </p>
@@ -45,20 +47,20 @@ const ContactProfile = () => {
             <div className="space-y-4">
                 <div>
                     <p>Email</p>
-                    <p>{mockContact.email || "No email"}</p>
+                    <p>{selectedContact.email || "No email"}</p>
                 </div>
 
                 <div>
                     <p className="text-sm font-semibold text-[#10b7a5]">Phone</p>
                     <p className="text-xl font-semibold text-slate-700">
-                        {mockContact.phoneNumber || "No phone number"}
+                        {selectedContact.phone_number || "No phone number"}
                     </p>
                 </div>
 
                 <div>
                     <p className="text-sm font-semibold text-[#10b7a5]">Notes</p>
                     <p className="mt-3 text-xl text-slate-700">
-                        {mockContact.notes || "No notes"}
+                        {selectedContact.notes || "No notes"}
                     </p>
                 </div>
             </div>

@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useContact } from "../context/contactContext";
 import { useUser } from "../context/userContext";
 const ContactCard = ({ contact }) => {
-	const { deleteContact } = useContact();
-	// const { currentUser } = useUser();
+	const { selectedContact, setSeletedContact, deleteContact } = useContact();
 	return (
 		<div className="flex flex-row justify-around">
 			<div className="flex flex-row ">
@@ -20,7 +19,7 @@ const ContactCard = ({ contact }) => {
 			</div>
 			<div className="flex flex-row justify-center items-center align-center gap-6">
 				<Link to="/profile">
-					<button className="text-2xl">👀</button>
+					<button onClick={() => setSeletedContact(contact)} className="text-2xl">👀</button>
 				</Link>
 				<button className="text-2xl" onClick={() => deleteContact(contact.id)}>🗑️</button>
 			</div>
