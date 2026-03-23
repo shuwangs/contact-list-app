@@ -17,7 +17,7 @@ export const contactReducer = (state, action) => {
 		case "ADD_CONTACT":
 			return {
 				...state,
-				contacts: [action.payload, ...state.contacts],
+				contacts: [action.payload, ...(state.contacts || [])],
 			};
 		case "UPDATE_CONTACT":
 			return {

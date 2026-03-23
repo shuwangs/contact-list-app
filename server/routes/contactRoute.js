@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
 
     try {
         const result = await contactService.addContact(userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes);
-
+        console.log("In contactRoute, after add contact, the result is: ", result);
         res.status(201).json({
             status: "success",
             data: result,

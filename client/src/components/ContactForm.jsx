@@ -3,11 +3,11 @@ import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 import FormDiv from "./ui/FormDiv.jsx";
 import FormLabel from "./ui/FormLabel.jsx";
-const ContactForm = () => {
+const ContactForm = ({ closeForm }) => {
 	const { currentUser } = useUser();
 	const { addNewContact, loading, error } = useContact();
 	const [formData, setFormData] = useState({
-		userId: currentUser,
+		userId: currentUser.id,
 		firstName: "",
 		lastName: "",
 		email: "",
@@ -24,13 +24,25 @@ const ContactForm = () => {
 		}));
 	};
 
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		try {
+			await addNewContact(currentUser.id, formData);
+			console.log("addNewContact finished");
+			closeForm();
+			console.log("closeForm called");
+		} catch (error) {
+			console.error("submit failed:", error);
+		}
+	};
 	useEffect(() => {
-		console.log(formData);
+		console.log("add contat form data", formData);
 	}, [formData]);
 	return (
 		<div className="fixed  w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
 			<form
-				onSubmit={() => addNewContact(formData)}
+				onSubmit={handleSubmit}
 				className="mx-auto max-w-2xl"
 			>
 				<div className="flex flex-row gap-6 ">
@@ -66,7 +78,8 @@ const ContactForm = () => {
 				{/* Email */}
 				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="email">Email</label>
-					<input id="email" name="email" onChange={handleChange} />
+					<input id="email" name="email"
+						value={formData.email} onChange={handleChange} />
 				</div>
 				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="phoneNumber">Phone</label>

@@ -11,6 +11,7 @@ export const getContacts = async (userId) => {
 };
 
 export const createContact = async (newContact) => {
+	console.log("In contactAPi, the new Contact is: ", newContact);
 	const result = await fetch(`/api/contacts`, {
 		method: "POST",
 		headers: {

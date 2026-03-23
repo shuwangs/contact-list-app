@@ -10,16 +10,26 @@ const Dashboard = () => {
 	const [showForm, setShowForm] = useState(false);
 	useEffect(() => {
 		const loadContacts = async () => {
-			if (currentUser) {
-				console.log("In dashboard currentUserId: ", currentUser.id);
+			if (!currentUser?.id) return;
 
+			try {
 				await fetchContacts(currentUser.id);
+			} catch (error) {
+				console.error("Get Contacts failed:", error);
 			}
 		};
 
 		loadContacts();
 
+	}, [currentUser?.id]);
+
+	useEffect(() => {
+		console.log("Contacts updated: ", currentUser);
 	}, [currentUser]);
+
+	useEffect(() => {
+		console.log("showForm:", showForm);
+	}, [showForm]);
 
 	useEffect(() => {
 		console.log("Contacts updated: ", contacts);
@@ -33,7 +43,7 @@ const Dashboard = () => {
 			</div>
 			{showForm && (
 				<div className="mt-4">
-					<ContactForm />
+					<ContactForm closeForm={() => setShowForm(false)} />
 				</div>
 			)}
 			<div>
