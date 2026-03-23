@@ -2,22 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContact } from "../context/contactContext";
 import { useUser } from "../context/userContext";
+import { getInitials } from "../utils/getInitials";
+import { TbUrgent } from "react-icons/tb";
+
 const ContactCard = ({ contact }) => {
 	const { selectedContact, setSeletedContact, deleteContact } = useContact();
 	return (
 		<div className="flex flex-row justify-around">
 			<div className="flex flex-row ">
-				<div className="text-3xl font-bold pr-4">nameIcon</div>
+				<div className="text-3xl font-bold pr-4">{getInitials(contact)}</div>
 				<div>
 					<div>
 						{contact.first_name} {contact.last_name}
 					</div>
 					<div>📧 {contact.email}</div>
-					<div>📱 {contact.phone_number}</div>
-					<div>📱 {contact.notes}</div>
+					<div>☎️ {contact.phone_number}</div>
+					<div>📝 {contact.notes}</div>
 				</div>
 			</div>
 			<div className="flex flex-row justify-center items-center align-center gap-6">
+				{contact.is_emergency_contact && <TbUrgent />}
 				<Link to="/profile">
 					<button onClick={() => setSeletedContact(contact)} className="text-2xl">👀</button>
 				</Link>

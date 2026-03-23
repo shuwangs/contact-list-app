@@ -99,6 +99,7 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 							name="firstName"
 							value={formData.firstName}
 							onChange={handleChange}
+							req
 						/>
 					</div>
 					{/* Last name */}
