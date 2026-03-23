@@ -1,6 +1,8 @@
 
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { useContact } from '../context/contactContext';
+import ContactForm from "../components/ContactForm.jsx";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
 const ContactProfile = () => {
@@ -14,8 +16,7 @@ const ContactProfile = () => {
     };
     const { selectedContact } = useContact();
     const { id } = useParams();
-    // const fullName = `${mockContact.firstName} ${mockContact.lastName}`.trim();
-
+    const [showForm, setShowForm] = useState(false);
     const initial = selectedContact.first_name?.[0]?.toUpperCase() || "?";
 
     return (
@@ -66,12 +67,17 @@ const ContactProfile = () => {
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-4">
-                <button className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]">
+                <button onClick={() => setShowForm(true)}
+                    className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]">
                     <RiEdit2Line /> Edit</button>
                 <button className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]"
                 ><RiDeleteBin5Line className="text-xl" /> Delete</button>
             </div>
-
+            {showForm && (
+                <ContactForm closeForm={() => setShowForm(false)}
+                    initialData={selectedContact}
+                    mode="edit" />
+            )}
         </div >
     )
 

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+
 import FormDiv from "./ui/FormDiv.jsx";
 import FormLabel from "./ui/FormLabel.jsx";
-const ContactForm = ({ closeForm }) => {
+const ContactForm = ({ closeForm, initialData, mode }) => {
 	const { currentUser } = useUser();
 	const { addNewContact, loading, error } = useContact();
 	const [formData, setFormData] = useState({
@@ -37,10 +39,41 @@ const ContactForm = ({ closeForm }) => {
 		}
 	};
 	useEffect(() => {
-		console.log("add contat form data", formData);
-	}, [formData]);
+		if (mode === "edit" && initialData) {
+			setFormData({
+				userId: initialData.user_id || currentUser?.id || "",
+				firstName: initialData.first_name || "",
+				lastName: initialData.last_name || "",
+				email: initialData.email || "",
+				phoneNumber: initialData.phone_number || "",
+				isEmergencyContact: initialData.is_emergency_contact || false,
+				notes: initialData.notes || "",
+			});
+		} else {
+			setFormData({
+				userId: currentUser?.id || "",
+				firstName: "",
+				lastName: "",
+				email: "",
+				phoneNumber: "",
+				isEmergencyContact: false,
+				notes: "",
+			});
+		}
+	}, [mode, initialData, currentUser]);
 	return (
-		<div className="fixed  w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
+		<div className="fixed w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
+			<div>
+				<button
+					onClick={closeForm}
+					className="absolute top-3 right-3 text-xl"
+				>
+					<IoMdCloseCircleOutline />
+				</button>
+
+			</div>
+
+
 			<form
 				onSubmit={handleSubmit}
 				className="mx-auto max-w-2xl"

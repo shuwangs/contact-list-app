@@ -43,7 +43,11 @@ const Dashboard = () => {
 			</div>
 			{showForm && (
 				<div className="mt-4">
-					<ContactForm closeForm={() => setShowForm(false)} />
+					<ContactForm closeForm={() => setShowForm(false)}
+						initialData={null}
+						mode="new"
+
+					/>
 				</div>
 			)}
 			<div>
