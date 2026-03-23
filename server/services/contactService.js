@@ -38,19 +38,11 @@ export const deleteContact = async (contactId) => {
 	return rows[0];
 };
 
-export const updateContact = async (
-	contactId,
-	firstName,
-	lastName,
-	phoneNumber,
-	email,
-	notes,
-	isEmergencyContact,
-) => {
+export const updateContact = async (id, firstName, lastName, email, phoneNumber, isEmergencyContact, notes) => {
 	const { rows } = await pool.query(
 		`UPDATE contact_app.contacts 
          SET first_name = $1, last_name = $2, phone_number = $3, email = $4, notes = $5, is_emergency_contact = $6
-         WHERE id = $7`,
+         WHERE id = $7 returning *`,
 		[
 			firstName,
 			lastName,
@@ -58,9 +50,9 @@ export const updateContact = async (
 			email,
 			notes,
 			isEmergencyContact,
-			contactId,
+			id,
 		],
 	);
-	console.log(rows);
+	console.log(rows[0]);
 	return rows[0];
 };

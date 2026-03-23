@@ -60,6 +60,8 @@ export const ContactProvider = ({ children }) => {
 			dispatch({ type: "SET_ERROR" });
 			const result = await updateContactById(contactId, updatedContact);
 			dispatch({ type: "UPDATE_CONTACT", payload: result.data });
+			setSeletedContact(result.data);
+
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {

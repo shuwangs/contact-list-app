@@ -55,6 +55,36 @@ router.post("/", async (req, res) => {
     }
 });
 
+
+router.put("/:contactId", async (req, res) => {
+    const id = Number(req.params.contactId);
+
+    console.log("PUT Request body contact id is : ", id);
+    console.log("PUT Request body is: ", req.body);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            status: "fail",
+            message: "invalid request",
+        });
+    }
+    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes } = req.body;
+
+    try {
+        const result = await contactService.updateContact(id, firstName, lastName, email, phoneNumber, isEmergencyContact, notes);
+        console.log("In contactRoute, after update contact, the result is: ", result);
+        res.status(200).json({
+            status: "success",
+            data: result,
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Internal Server Error",
+        });
+    }
+});
+
+
 router.delete("/:contactId", async (req, res) => {
     console.log("In contactRoute... ")
     console.log("In contactRoute... ")

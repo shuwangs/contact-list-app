@@ -7,7 +7,7 @@ import FormDiv from "./ui/FormDiv.jsx";
 import FormLabel from "./ui/FormLabel.jsx";
 const ContactForm = ({ closeForm, initialData, mode }) => {
 	const { currentUser } = useUser();
-	const { addNewContact, loading, error } = useContact();
+	const { addNewContact, editContact, loading, error } = useContact();
 	const [formData, setFormData] = useState({
 		userId: currentUser.id,
 		firstName: "",
@@ -30,8 +30,15 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 		event.preventDefault();
 
 		try {
-			await addNewContact(currentUser.id, formData);
-			console.log("addNewContact finished");
+			if (mode === "edit" && initialData?.id) {
+				console.log("editContact before: ", initialData?.id)
+				await editContact(initialData.id, formData);
+				console.log("editContact finished");
+			} else {
+				await addNewContact(currentUser.id, formData);
+				console.log("addNewContact finished");
+			}
+
 			closeForm();
 			console.log("closeForm called");
 		} catch (error) {
@@ -152,7 +159,13 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 					className="w-full rounded-2xl bg-[#2fcfcb] px-6 py-4 text-xl font-bold text-white"
 					disabled={loading}
 				>
-					{loading ? "Creating..." : "Create Contact ✓"}
+					{loading
+						? mode === "edit"
+							? "Saving..."
+							: "Creating..."
+						: mode === "edit"
+							? "Save Changes"
+							: "Create Contact ✓"}
 				</button>
 
 				{error && <p>{error}</p>}
