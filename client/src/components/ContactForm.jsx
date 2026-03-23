@@ -31,7 +31,7 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 
 		try {
 			if (mode === "edit" && initialData?.id) {
-				console.log("editContact before: ", initialData?.id)
+				console.log("editContact before: ", initialData?.id);
 				await editContact(initialData.id, formData);
 				console.log("editContact finished");
 			} else {
@@ -71,20 +71,12 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 	return (
 		<div className="fixed w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
 			<div>
-				<button
-					onClick={closeForm}
-					className="absolute top-3 right-3 text-xl"
-				>
+				<button onClick={closeForm} className="absolute top-3 right-3 text-xl">
 					<IoMdCloseCircleOutline />
 				</button>
-
 			</div>
 
-
-			<form
-				onSubmit={handleSubmit}
-				className="mx-auto max-w-2xl"
-			>
+			<form onSubmit={handleSubmit} className="mx-auto max-w-2xl">
 				<div className="flex flex-row gap-6 ">
 					{/* First name */}
 					<div className="rounded-xl border-2px border-[#8ee9dc] bg-white shadow-sm">
@@ -104,9 +96,7 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 					</div>
 					{/* Last name */}
 					<FormDiv className="bg-black">
-						<FormLabel htmlFor="lastName">
-							Last Name
-						</FormLabel>
+						<FormLabel htmlFor="lastName">Last Name</FormLabel>
 
 						<input
 							value={formData.lastName}
@@ -119,8 +109,12 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 				{/* Email */}
 				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="email">Email</label>
-					<input id="email" name="email"
-						value={formData.email} onChange={handleChange} />
+					<input
+						id="email"
+						name="email"
+						value={formData.email}
+						onChange={handleChange}
+					/>
 				</div>
 				<div className="mb-3 block text-xl font-semibold text-teal-700">
 					<label htmlFor="phoneNumber">Phone</label>

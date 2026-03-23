@@ -25,9 +25,16 @@ const ContactCard = ({ contact }) => {
 			<div className="flex flex-row justify-center items-center align-center gap-6">
 				{contact.is_emergency_contact && <TbUrgent />}
 				<Link to="/profile">
-					<button onClick={() => setSeletedContact(contact)} className="text-2xl">👀</button>
+					<button
+						onClick={() => setSeletedContact(contact)}
+						className="text-2xl"
+					>
+						👀
+					</button>
 				</Link>
-				<button className="text-2xl" onClick={() => deleteContact(contact.id)}>🗑️</button>
+				<button className="text-2xl" onClick={() => deleteContact(contact.id)}>
+					🗑️
+				</button>
 			</div>
 		</div>
 	);

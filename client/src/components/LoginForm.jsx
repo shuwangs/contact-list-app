@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useNavigate } from "react-router-dom";
 import FormLabel from "./ui/FormLabel.jsx";
-import FormInput from "./ui/FormInput.jsx"
+import FormInput from "./ui/FormInput.jsx";
 import FormBtn from "./ui/FormBtn.jsx";
 import { FaLongArrowAltRight } from "react-icons/fa";
-
 
 const LoginForm = () => {
 	const { loading, error, login } = useUser();
@@ -33,8 +32,6 @@ const LoginForm = () => {
 			console.log("login failed:", error);
 		}
 	};
-
-
 
 	return (
 		<div className="flex justity-center items-center text-left g-2">
@@ -66,9 +63,15 @@ const LoginForm = () => {
 				<div>
 					<FormBtn
 						className="flex items-center gap-2 justify-center"
-						type="submit">
-						{loading ? "Loading..." : <>Continue <FaLongArrowAltRight /></>
-						}
+						type="submit"
+					>
+						{loading ? (
+							"Loading..."
+						) : (
+							<>
+								Continue <FaLongArrowAltRight />
+							</>
+						)}
 					</FormBtn>
 				</div>
 			</form>

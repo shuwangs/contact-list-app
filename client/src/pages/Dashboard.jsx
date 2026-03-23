@@ -4,6 +4,8 @@ import ContactList from "../components/ContactList.jsx";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 import ContactForm from "../components/ContactForm.jsx";
+import { RiContactsBook2Line } from "react-icons/ri";
+
 const Dashboard = () => {
 	const { currentUser } = useUser();
 	const { fetchContacts, contacts } = useContact();
@@ -20,7 +22,6 @@ const Dashboard = () => {
 		};
 
 		loadContacts();
-
 	}, [currentUser?.id]);
 
 	useEffect(() => {
@@ -35,18 +36,26 @@ const Dashboard = () => {
 		console.log("Contacts updated: ", contacts);
 	}, [contacts]);
 	return (
-		<div className="flex flex-col ">
-			<h1>Contact list App</h1>
-			<div className="flex flex-row justify-center">
+		<div className="flex flex-col text-2xl m-16">
+			<div className="flex flex-row mt-16 mb-8 justify-between items-center">
+				<div className="flex flex-row items-center gap-4">				
+					<RiContactsBook2Line />
+					<h1 className="text-3xl color-[#0081a7]">Hello, {currentUser.name}</h1>
+				</div>
+
+				<button>Log Out</button>
+			</div>
+
+			<div className="flex flex-row justify-between mb-8 gap-4 ">
 				<SearchBar />
 				<button onClick={() => setShowForm(true)}>Add Contact</button>
 			</div>
 			{showForm && (
 				<div className="mt-4">
-					<ContactForm closeForm={() => setShowForm(false)}
+					<ContactForm
+						closeForm={() => setShowForm(false)}
 						initialData={null}
 						mode="new"
-
 					/>
 				</div>
 			)}

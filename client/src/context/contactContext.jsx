@@ -27,10 +27,13 @@ export const ContactProvider = ({ children }) => {
 
 			const result = await getContacts(userId);
 
-			console.log("In contactContext: the result of getContacts is: ", result)
+			console.log("In contactContext: the result of getContacts is: ", result);
 			dispatch({ type: "SET_CONTACTS", payload: result });
 
-			console.log("In contactContext: after getContacts the contacts", contacts);
+			console.log(
+				"In contactContext: after getContacts the contacts",
+				contacts,
+			);
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {
@@ -61,7 +64,6 @@ export const ContactProvider = ({ children }) => {
 			const result = await updateContactById(contactId, updatedContact);
 			dispatch({ type: "UPDATE_CONTACT", payload: result.data });
 			setSeletedContact(result.data);
-
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {
@@ -87,7 +89,8 @@ export const ContactProvider = ({ children }) => {
 		contacts: state.contacts,
 		loading: state.loading,
 		error: state.error,
-		selectedContact, setSeletedContact,
+		selectedContact,
+		setSeletedContact,
 		fetchContacts,
 		addNewContact,
 		editContact,
