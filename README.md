@@ -1,41 +1,66 @@
-# Ctrl-Alt-Innovate API
+# Contact List
 
-This project implements a RESTful API for managing a simple ordering system.
+A full-stack contact management application built with **PostgreSQL, Express, React, and Node.js (PERN)**.
 
-The API allows clients to manage:
-- Users
-- Orders
-- Items
+This app allows users to log in, manage their personal contacts, and perform full CRUD operations in a clean and intuitive interface.
 
-Each user can have multiple orders, and each order can contain multiple items.
+---
 
-The API is built with **Node.js, Express, and PostgreSQL** and includes **Swagger documentation** for interactive API exploration.
+## 🚀 Features
 
+- User login (lightweight authentication)
+- View all contacts
+- Create a new contact
+- Edit contact information
+- Delete contacts
+- View individual contact details
+- Mark emergency contacts
+- Global state management using **React Context + useReducer**
+
+---
 ## Tech Stack
 - Node.js
 - Express.js
 - PostgreSQL
-- Swagger (OpenAPI)
+- TailwindCSS
 
-## Database Design
 
-The database consists of three main tables: **users**, **orders**, and **items**.
+## 🗄️ Database Design
 
-- A **user** can have multiple **orders**
-- An **order** can contain multiple **items**
+The database consists of two main tables:
 
-This relational structure ensures clear data relationships and supports efficient queries across users, orders, and items.
+### Users
+- id (PK)
+- name
+- email
 
+### Contacts
+- id (PK)
+- user_id (FK → users.id)
+- first_name
+- last_name
+- phone_number
+- email
+- notes
+- is_emergency_contact
+- created_at
+
+### Relationships
+
+- One user can have multiple contacts (1:N)
+- Each contact belongs to one user
 
 ## Technical Highlights
 ![View Design](docs/image.png)
+
+
 ## Setup Instructions
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/shuwangs/Ctrl-Alt-Innovate.git
+git clone https://github.com/shuwangs/contact-list-app.git
 
-cd Ctrl-Alt-Innovate/server
+cd contact-list/server
 ```
 
 ### 2. Install dependencies
@@ -62,65 +87,12 @@ psql -d your_database_name -f db/db_dump.sql
 
 `npm run dev`
 
-## API Documentation
-Swagger UI is available at:
 
-http://localhost:3000/api-docs
-
-### Example Endpoints
-#### Users
-
-GET /api/users  
-GET /api/users/{userId}  
-POST /api/users  
-PUT /api/users/{userId}  
-DELETE /api/users/{userId}
-
-#### Orders
-GET /api/orders  
-GET /api/orders/{orderId}  
-POST /api/orders  
-PUT /api/orders/{orderId}  
-DELETE /api/orders/{orderId}
-
-#### Items
-
-GET /api/items/{orderId}
-
-#### Stats
-
-GET /api/stats
-
-### Example Response
+## 🌱 Future Improvements
+- Add search and filter functionality
+- Implement full authentication (JWT or cookies)
 
 
+## Author
 
-## Contributors
-
-- [Redu Davison](https://github.com/rdavison23)
 - [Shu Wang](https://github.com/shuwangs)
-
-### Contributions
-
-**Redu Davison**
-- Database initialization and schema setup
-- Service and route logic implementation
-- Swagger documentation implementation
-- API testing
-- slides presentation
-
-**Shu Wang**
-- Backend project initialization
-- Service and route layer implementation
-- Swagger setup and documentation
-- README writing and documentation
-- API testing
-
-## AI Tools Used
-
-- **Tools used:** ChatGPT  
-
-- **Usage Scenarios:**
-  1. Assisted with debugging by helping identify and explain error messages.
-  2. Helped generate sample seed data for testing the database.
-  3. Assisted with proofreading and improving the README documentation.
