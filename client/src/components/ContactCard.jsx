@@ -8,10 +8,12 @@ import { TbUrgent } from "react-icons/tb";
 const ContactCard = ({ contact }) => {
 	const { selectedContact, setSeletedContact, deleteContact } = useContact();
 	return (
-		<div className="flex flex-row justify-around">
-			<div className="flex flex-row ">
-				<div className="text-3xl font-bold pr-4">{getInitials(contact)}</div>
-				<div>
+		<div className="border border-radius-xl flex flex-row align-center justify-around">
+			<div className="flex flex-row gap-4">
+				<div className="w-14 h-14 flex text-3xl font-bold items-center text-center justify-center border rounded-full bg-[#]">
+					{getInitials(contact)}
+				</div>
+				<div className="text-left">
 					<div>
 						{contact.first_name} {contact.last_name}
 					</div>
