@@ -12,6 +12,7 @@ import {
 	updateContactById,
 	createContact,
 	deleteContactById,
+	onSearch,
 } from "../api/contactApi.js";
 
 const ContactContext = createContext();
@@ -77,9 +78,25 @@ export const ContactProvider = ({ children }) => {
 			const result = await deleteContactById(contactId);
 			dispatch({ type: "DELETE_CONTACT", payload: result.data.id });
 
-			// await fetchContacts(currentUser);
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
+		} finally {
+			dispatch({ type: "SET_LOADING", payload: false });
+		}
+	};
+
+	const fetchSearch = async (userId, searchTerm) => {
+		dispatch({ type: "SET_LOADING", payload: true });
+		dispatch({ type: "SET_ERROR", payload: "" });
+		if (!userId) return;
+		const trimmed = searchTerm.trim();
+
+		try {
+			const result = await onSearch(userId, searchTerm);
+			dispatch({ type: "SET_CONTACTS", payload: result });
+		} catch (err) {
+			dispatch({ type: "SET_ERROR", payload: err.message || "Unknown error" });
+
 		} finally {
 			dispatch({ type: "SET_LOADING", payload: false });
 		}
@@ -95,6 +112,7 @@ export const ContactProvider = ({ children }) => {
 		addNewContact,
 		editContact,
 		deleteContact,
+		fetchSearch,
 	};
 
 	return (

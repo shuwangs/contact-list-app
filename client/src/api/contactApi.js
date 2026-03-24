@@ -54,3 +54,13 @@ export const deleteContactById = async (contactId) => {
 	const data = await result.json();
 	return data;
 };
+
+export const onSearch = async (userId, searchParams) => {
+	const query = new URLSearchParams(searchParams).toString();
+	const result = await fetch(`api/contacts/users/${userId}search?${query}`);
+	if (!result.ok) {
+		throw new Error("Failed to Search.");
+	}
+	const data = await result.json();
+	return data;
+}
