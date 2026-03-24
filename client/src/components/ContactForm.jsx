@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-
+import ContactFormDiv from "./ui/ContactFormDiv.jsx";
 import FormDiv from "./ui/FormDiv.jsx";
 import FormLabel from "./ui/FormLabel.jsx";
+import FormInput from "./ui/FormInput.jsx";
+
 const ContactForm = ({ closeForm, initialData, mode }) => {
 	const { currentUser } = useUser();
 	const { addNewContact, editContact, loading, error } = useContact();
@@ -68,104 +70,117 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 			});
 		}
 	}, [mode, initialData, currentUser]);
+
 	return (
-		<div className="fixed w-125 rounded-2xl bg-[#edf5f3] border-2 px-6 py-8">
-			<div>
-				<button onClick={closeForm} className="absolute top-3 right-3 text-xl">
-					<IoMdCloseCircleOutline />
-				</button>
-			</div>
+		<div className="fixed inset-0 z-50 flex items-center justify-center">
+			<div className="relative w-full max-w-2xl rounded-2xl border-2 bg-[#edf5f3] px-10 py-8 shadow-xl">
+				<div className="flex justify-between font-bold text-[#0081a7] pb-5" >
+					{mode === "new" ? <h3 >Add New Contact</h3> : <h3>Edit Contact</h3>}
+					<button onClick={closeForm} className=" top-3 right-3 text-3xl ">
+						<IoMdCloseCircleOutline />
+					</button>
+				</div>
 
-			<form onSubmit={handleSubmit} className="mx-auto max-w-2xl">
-				<div className="flex flex-row gap-6 ">
-					{/* First name */}
-					<div className="rounded-xl border-2px border-[#8ee9dc] bg-white shadow-sm">
-						<label
-							htmlFor="firstName"
-							className="mb-3 block text-xl font-semibold text-teal-700"
+				<div >
+					<form onSubmit={handleSubmit} className="flex flex-col mx-auto max-w-2xl gap-4">
+						<div className="flex flex-row gap-6 border-3 border-[#0081a7] rounded-xl py-4 justify-around bg-[#fdfcdc]">
+							{/* First name */}
+							<FormDiv className="border-2 border-[#00afb9]">
+								<label
+									htmlFor="firstName"
+									className="mb-3 block text-xl font-semibold text-[#0081a7]"
+								>
+									First Name*
+								</label>
+								<input
+									className="pl-4 text-[#f07167] "
+									id="firstName"
+									name="firstName"
+									value={formData.firstName}
+									onChange={handleChange}
+									required
+								/>
+							</FormDiv>
+							{/* Last name */}
+							<FormDiv className="border-2 border-[#00afb9]">
+								<FormLabel htmlFor="lastName">Last Name</FormLabel>
+
+								<input
+									className="pl-4 text-[#f07167] "
+									value={formData.lastName}
+									id="lastName"
+									name="lastName"
+									onChange={handleChange}
+								/>
+							</FormDiv>
+						</div>
+						{/* Email */}
+						<ContactFormDiv>
+							<label htmlFor="email">Email</label>
+							<FormInput
+								className="border-3"
+								id="email"
+								name="email"
+								value={formData.email}
+								onChange={handleChange} />
+						</ContactFormDiv>
+						<ContactFormDiv>
+							<label htmlFor="phoneNumber">Phone</label>
+							<FormInput
+								className="border-3"
+								id="phoneNumber"
+								name="phoneNumber"
+								value={formData.phoneNumber}
+								onChange={handleChange}
+							/>
+						</ContactFormDiv>
+
+						<ContactFormDiv>
+							<label htmlFor="isEmergencyContact">
+								Is Emergency ?
+								<input
+									id="isEmergencyContact"
+									name="isEmergencyContact"
+									type="checkbox"
+									checked={formData.isEmergencyContact}
+									onChange={handleChange}
+								/>
+
+							</label>
+						</ContactFormDiv>
+						<ContactFormDiv>
+							<label htmlFor="notes">Note</label>
+							<textarea
+								id="notes"
+								name="notes"
+								className="w-full rounded-xl border-3 border-[#0081a7] text-[#f07167] pl-4"
+								value={formData.notes}
+								onChange={handleChange}
+							/>
+						</ContactFormDiv>
+
+						<button
+							type="submit"
+							className="w-full rounded-2xl bg-[#0081a7] px-6 py-4 text-xl font-bold text-[#fdfcdc]
+							hover:bg-[#f07167]"
+							disabled={loading}
 						>
-							First Name*
-						</label>
-						<input
-							id="firstName"
-							name="firstName"
-							value={formData.firstName}
-							onChange={handleChange}
-							req
-						/>
-					</div>
-					{/* Last name */}
-					<FormDiv className="bg-black">
-						<FormLabel htmlFor="lastName">Last Name</FormLabel>
+							{loading
+								? mode === "edit"
+									? "Saving..."
+									: "Creating..."
+								: mode === "edit"
+									? "Save Changes"
+									: "Create Contact ✓"}
+						</button>
 
-						<input
-							value={formData.lastName}
-							id="lastName"
-							name="lastName"
-							onChange={handleChange}
-						/>
-					</FormDiv>
-				</div>
-				{/* Email */}
-				<div className="mb-3 block text-xl font-semibold text-teal-700">
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						name="email"
-						value={formData.email}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="mb-3 block text-xl font-semibold text-teal-700">
-					<label htmlFor="phoneNumber">Phone</label>
-					<input
-						id="phoneNumber"
-						name="phoneNumber"
-						value={formData.phoneNumber}
-						onChange={handleChange}
-					/>
+						{error && <p>{error}</p>}
+					</form>
 				</div>
 
-				<div className="mb-3 block text-xl font-semibold text-teal-700">
-					<label htmlFor="isEmergencyContact">
-						<input
-							id="isEmergencyContact"
-							name="isEmergencyContact"
-							type="checkbox"
-							checked={formData.isEmergencyContact}
-							onChange={handleChange}
-						/>
-						Emergency
-					</label>
-				</div>
-				<div className="mb-3 block text-xl font-semibold text-teal-700">
-					<label htmlFor="notes">Note</label>
-					<textarea
-						id="notes"
-						name="notes"
-						className="w-full rounded-2xl border border-[#8ee9dc] text-teal-500"
-						value={formData.notes}
-						onChange={handleChange}
-					/>
-				</div>
+			</div >
 
-				<button
-					type="submit"
-					className="w-full rounded-2xl bg-[#2fcfcb] px-6 py-4 text-xl font-bold text-white"
-					disabled={loading}
-				>
-					{loading
-						? mode === "edit"
-							? "Saving..."
-							: "Creating..."
-						: mode === "edit"
-							? "Save Changes"
-							: "Create Contact ✓"}
-				</button>
-
-				{error && <p>{error}</p>}
-			</form>
-		</div>
+		</div >
 	);
 };
 
