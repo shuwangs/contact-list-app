@@ -10,7 +10,7 @@ const ContactList = () => {
 	if (error) return <p>{error}</p>;
 
 	return (
-		<div>
+		<div className="flex flex-col gap-4">
 			{contacts.length === 0 ? (
 				<p>Start adding Contact</p>
 			) : (
