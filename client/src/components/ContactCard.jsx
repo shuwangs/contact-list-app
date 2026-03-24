@@ -8,7 +8,7 @@ import { TbUrgent } from "react-icons/tb";
 const ContactCard = ({ contact }) => {
 	const { selectedContact, setSeletedContact, deleteContact } = useContact();
 	return (
-		<div className="rounded-xl border flex flex-row align-center justify-between px-10">
+		<div className="rounded-xl border flex flex-row align-center justify-between px-10 py-4">
 			<div className="flex flex-row gap-4">
 				<div className="w-14 h-14 flex text-3xl font-bold align-left items-center justify-center border rounded-full bg-[#]">
 					{getInitials(contact)}
@@ -17,22 +17,22 @@ const ContactCard = ({ contact }) => {
 					<div>
 						{contact.first_name} {contact.last_name}
 					</div>
-					<div>📧 {contact.email || "No email"}</div>
-					<div>☎️ {contact.phone_number || "No phone"}</div>
-					<div>📝 {contact.notes || "No notes"}</div>
+					<div className="text-sm">📧 {contact.email || "No email"}</div>
+					<div className="text-sm">☎️ {contact.phone_number || "No phone"}</div>
+					<div className="text-sm">📝 {contact.notes || "No notes"}</div>
 				</div>
 			</div>
-			<div className="flex flex-row justify-center items-center align-center gap-6">
+			<div className="flex flex-row justify-center items-center align-center gap-6 text-4xl">
 				{contact.is_emergency_contact && <TbUrgent />}
 				<Link to="/profile">
 					<button
 						onClick={() => setSeletedContact(contact)}
-						className="text-2xl"
+
 					>
 						👀
 					</button>
 				</Link>
-				<button className="text-2xl" onClick={() => deleteContact(contact.id)}>
+				<button onClick={() => deleteContact(contact.id)}>
 					🗑️
 				</button>
 			</div>

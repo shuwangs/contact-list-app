@@ -28,11 +28,18 @@ export const UserProvider = ({ children }) => {
 		}
 	};
 
+	const logOut = () => {
+		setCurrentUser(null);
+		setError("");
+		localStorage.removeItem("currentUser");
+	}
+
 	const values = {
 		currentUser,
 		loading,
 		error,
 		login,
+		logOut
 	};
 
 	return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

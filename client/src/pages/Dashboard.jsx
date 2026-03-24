@@ -5,11 +5,13 @@ import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 import ContactForm from "../components/ContactForm.jsx";
 import { RiContactsBook2Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-	const { currentUser } = useUser();
+	const { currentUser, logOut } = useUser();
 	const { fetchContacts, contacts } = useContact();
 	const [showForm, setShowForm] = useState(false);
+	const navigator = useNavigate();
 	useEffect(() => {
 		const loadContacts = async () => {
 			if (!currentUser?.id) return;
@@ -24,6 +26,10 @@ const Dashboard = () => {
 		loadContacts();
 	}, [currentUser?.id]);
 
+	const handleLogOut = () => {
+		logOut();
+		navigator('/');
+	}
 	useEffect(() => {
 		console.log("Contacts updated: ", currentUser);
 	}, [currentUser]);
@@ -38,17 +44,19 @@ const Dashboard = () => {
 	return (
 		<div className="flex flex-col text-2xl m-16">
 			<div className="flex flex-row mt-16 mb-8 justify-between items-center">
-				<div className="flex flex-row items-center gap-4">				
+				<div className="flex flex-row items-center gap-4">
 					<RiContactsBook2Line />
-					<h1 className="text-3xl color-[#0081a7]">Hello, {currentUser.name}</h1>
+					<h1 className="text-3xl text-[#f07167] font-bold">Hello, {currentUser.name}</h1>
 				</div>
 
-				<button>Log Out</button>
+				<button onClick={handleLogOut}>Log Out</button>
 			</div>
 
 			<div className="flex flex-row justify-between mb-8 gap-4 ">
 				<SearchBar />
-				<button onClick={() => setShowForm(true)}>Add Contact</button>
+				<button onClick={() => setShowForm(true)}
+					className="rounded-md border-2 bg-[#00afb9] text-[#fed9b7] px-4"
+				>Add Contact</button>
 			</div>
 			{showForm && (
 				<div className="mt-4">

@@ -10,7 +10,7 @@ const LoginPage = () => {
 				</h1>
 				<p className="mb-6 text-center text-gray-500">
 					{" "}
-					Sign in to access Weather Dashboard
+					Sign in to access Contact Dashboard
 				</p>
 
 				<LoginForm />

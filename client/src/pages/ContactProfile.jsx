@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContact } from "../context/contactContext";
 import ContactForm from "../components/ContactForm.jsx";
+import { getInitials } from "../utils/getInitials.js";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
 const ContactProfile = () => {
@@ -16,74 +17,83 @@ const ContactProfile = () => {
 	const { selectedContact } = useContact();
 	const { id } = useParams();
 	const [showForm, setShowForm] = useState(false);
-	const initial = selectedContact.first_name?.[0]?.toUpperCase() || "?";
+	const initial = getInitials(selectedContact);
 
 	return (
-		<div className="bg-[#edf6f5] mx-auto max-w-[500px] font-medium ">
-			<div className="">
+		<div className="mx-auto max-w-[500px] font-medium py-20">
+
+			<div className="text-xl ">
 				<Link to="/dashboard">
-					<button>
+					<button className="flex items-center gap-2 text-[#00afb9]">
 						<IoMdArrowRoundBack className="text-xl" /> Back
 					</button>
 				</Link>
 			</div>
 
-			{/* Card */}
+			<div className="rounded-xl border-4 border-[#f07167] mt-8 py-8 px-8">
+				{/* Card */}
 
-			<div className="rounded-[28px] border bg-[#edf6f2] mb-6 flex items-center gap-5">
-				<div className="flex flex h-18 w-18 items-center justify-center text-black">
-					{initial}
+				<div className="rounded-[14px] border bg-[#edf6f2] mb-6 flex items-center gap-5">
+					<div className="flex rounded-full h-18 w-18 bg-[#fed9b7] items-center justify-center text-3xl text-[#0081a7]">
+						{initial}
+					</div>
+
+					<div className="">
+						<h1 className="text-3xl font-bold text-black">
+							{selectedContact.first_name} {selectedContact.last_name}
+						</h1>
+					</div>
 				</div>
 
-				<div className="">
-					<h1 className="text-3xl font-bold text-black">
-						{selectedContact.first_name} {selectedContact.last_name}
-					</h1>
-					<p className="text-base font-medium text-black">💝 Contact Details</p>
+				{/* Info blocks */}
+				<div className="space-y-4 text-left">
+					<div>
+						<h3 className="text-xl text-[#0081a7] font-bold">Email</h3>
+						<p className="text-md text-[#f07167] font-semibold">{selectedContact.email || "No email"}</p>
+					</div>
+
+					<div>
+						<h3 className="text-xl text-[#0081a7] font-bold">Phone</h3>
+						<p className="text-md text-[#f07167] font-semibold">
+							{selectedContact.phone_number || "No phone number"}
+						</p>
+					</div>
+
+					<div>
+						<h3 className="text-xl text-[#0081a7] font-bold">Notes</h3>
+
+						<p className="text-md text-[#f07167] font-semibold">
+							{selectedContact.notes || "No notes"}
+						</p>
+					</div>
 				</div>
+
+				<div className="mt-6 grid grid-cols-2 gap-4 text-xl text-[#fdfcdc]">
+					<button
+						onClick={() => setShowForm(true)}
+						className="mt-4 py-2 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]
+						 bg-[#0081a7]  hover:bg-[#00afb9]"
+					>
+						<RiEdit2Line /> Edit
+					</button>
+					<button className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]
+					 bg-[#f07167]  hover:bg-[#fed9b7] hover:text-[#00afb9]">
+						<RiDeleteBin5Line className="text-xl" /> Delete
+					</button>
+				</div>
+				{showForm && (
+					<ContactForm
+						closeForm={() => setShowForm(false)}
+						initialData={selectedContact}
+						mode="edit"
+					/>
+				)}
 			</div>
 
-			{/* Info blocks */}
-			<div className="space-y-4">
-				<div>
-					<p>Email</p>
-					<p>{selectedContact.email || "No email"}</p>
-				</div>
 
-				<div>
-					<p className="text-sm font-semibold text-[#10b7a5]">Phone</p>
-					<p className="text-xl font-semibold text-slate-700">
-						{selectedContact.phone_number || "No phone number"}
-					</p>
-				</div>
 
-				<div>
-					<p className="text-sm font-semibold text-[#10b7a5]">Notes</p>
-					<p className="mt-3 text-xl text-slate-700">
-						{selectedContact.notes || "No notes"}
-					</p>
-				</div>
-			</div>
-
-			<div className="mt-6 grid grid-cols-2 gap-4">
-				<button
-					onClick={() => setShowForm(true)}
-					className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]"
-				>
-					<RiEdit2Line /> Edit
-				</button>
-				<button className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]">
-					<RiDeleteBin5Line className="text-xl" /> Delete
-				</button>
-			</div>
-			{showForm && (
-				<ContactForm
-					closeForm={() => setShowForm(false)}
-					initialData={selectedContact}
-					mode="edit"
-				/>
-			)}
 		</div>
+
 	);
 };
 
