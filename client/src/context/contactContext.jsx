@@ -89,10 +89,10 @@ export const ContactProvider = ({ children }) => {
 		dispatch({ type: "SET_LOADING", payload: true });
 		dispatch({ type: "SET_ERROR", payload: "" });
 		if (!userId) return;
-		const trimmed = searchTerm.trim();
+		const keyword = searchTerm.keyword.trim();
 
 		try {
-			const result = await onSearch(userId, searchTerm);
+			const result = await onSearch(userId, { keyword });
 			dispatch({ type: "SET_CONTACTS", payload: result });
 		} catch (err) {
 			dispatch({ type: "SET_ERROR", payload: err.message || "Unknown error" });

@@ -56,3 +56,22 @@ export const updateContact = async (id, firstName, lastName, email, phoneNumber,
 	console.log(rows[0]);
 	return rows[0];
 };
+
+
+export const searchContactsByUserId = async ({ userId, keyword }) => {
+	console.log("Searching in db...");
+	const searchTerm = `%${keyword.toLowerCase()}%`
+
+	const { rows } = await pool.query(
+		`SELECT * FROM contact_app.contacts 
+		WHERE user_id = $1
+		AND (
+		first_name ILIKE $2 
+		OR last_name ILIKE $2
+		OR email ILIKE $2
+		OR phone_number ILIKE $2
+		OR notes ILIKE $2) `,
+		[userId, searchTerm],
+	);
+	return rows;
+};

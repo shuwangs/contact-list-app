@@ -120,4 +120,27 @@ router.delete("/:contactId", async (req, res) => {
     }
 });
 
+
+router.get('/:userId/search', async (req, res) => {
+    console.log("Searching in contactRoute..")
+    try {
+        const userId = Number(req.params.userId);
+        const { keyword } = req.query;
+        console.log("userid is : ", userId);
+        console.log("searche term  is : ", keyword);
+        if (!Number.isInteger(userId) || userId <= 0) {
+            return res.status(400).json({ error: "Invalid userId" });
+        }
+
+        if (!keyword || !keyword.trim()) {
+            return res.status(400).json({ error: "Search keyword is required" });
+        }
+        const result = await contactService.searchContactsByUserId({ userId, keyword });
+        res.status(200).json(result);
+
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+})
+
 export default router;

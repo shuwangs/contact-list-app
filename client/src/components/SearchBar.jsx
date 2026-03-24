@@ -15,7 +15,7 @@ const SearchBar = () => {
 		setKeyword(trimmed);
 	};
 	const handleSearch = () => {
-		fetchSearch(currentUser.id, keyword);
+		fetchSearch(currentUser.id, { keyword });
 	};
 	const handleClear = () => {
 		setKeyword("")
