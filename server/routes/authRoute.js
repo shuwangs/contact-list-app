@@ -1,32 +1,109 @@
 import { Router } from "express";
 import * as authService from "../services/authService.js";
+import jwt from "jsonwebtoken"
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+// router.post("/", async (req, res) => {
+// 	console.log("In authRoute...");
+// 	console.log("Request body is: ", req.body);
+
+// 	const { name, email } = req.body;
+// 	if (!name || !email) {
+// 		return res.status(400).json({
+// 			status: "fail",
+// 			message: "invalid request",
+// 		});
+// 	}
+
+// 	try {
+// 		const result = await authService.findOrCreateUser(name, email);
+// 		res.status(200).json({
+// 			status: "success",
+// 			data: result,
+// 		});
+// 	} catch (error) {
+// 		res.status(500).json({
+// 			status: "fail",
+// 			message: "Internal Server Error",
+// 		});
+// 	}
+// });
+
+router.post("/register", async (req, res) => {
 	console.log("In authRoute...");
-	console.log("Request body is: ", req.body);
+	console.log("register body is: ", req.body);
 
 	const { name, email } = req.body;
-	if (!name | !email) {
+	if (!name || !email) {
 		return res.status(400).json({
 			status: "fail",
-			message: "invalid request",
+			message: "Name and email are required",
 		});
 	}
 
 	try {
-		const result = await authService.findOrCreateUser(name, email);
-		res.status(200).json({
+		const newUser = await authService.registerUser(name, email);
+		console.log("In register, result after authService..", newUser)
+		// Create JWT tokens
+		const token = jwt.sign(
+			{
+				id: newUser.id,
+				email: newUser.email,
+				name: newUser.name,
+			},
+			process.env.JWT_SECRET,
+			{ expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+		);
+		console.log("tokens are: ", token)
+		res.status(201).json({
 			status: "success",
-			data: result,
+			data: {
+				newUser,
+				token,
+			},
 		});
 	} catch (error) {
-		res.status(500).json({
+		res.status(400).json({
 			status: "fail",
-			message: "Internal Server Error",
+			message: error.message,
 		});
 	}
 });
 
+// POST /api/auth/login
+router.post("/login", async (req, res) => {
+	const { name, email } = req.body;
+
+	if (!email) {
+		return res.status(400).json({
+			status: "fail",
+			message: "Email is required",
+		});
+	}
+
+	try {
+		const user = await authService.loginUser(email.trim());
+		console.log(user);
+
+		// Create JWT tokens
+		const token = jwt.sign(user, process.env.JWT_SECRET, {
+			expiresIn: process.env.JWT_EXPIRES_IN || "1h",
+		})
+
+		res.status(200).json({
+			status: 'Login successful',
+			data: {
+				user,
+				token,
+			},
+		});
+
+	} catch (error) {
+		res.status(401).json({
+			status: "fail",
+			message: 'Invalid credentials',
+		});
+	}
+});
 export default router;
