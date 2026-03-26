@@ -25,21 +25,22 @@ const LoginForm = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		console.log("formData to submit", formData);
-		try {
-			if (authMode === "login") {
-				await login(formData);
-				console.log("User submit the login form");
-			} else {
-				await register(formData)
-			}
+		let success = false;
 
+		if (authMode === "login") {
+			success = await login(formData);
+			console.log("User submit the login form");
+		} else {
+			success = await register(formData);
+		}
+
+		if (success) {
 			navigate("/dashboard");
-		} catch (error) {
-			console.log("login failed:", error);
 		}
 	};
 
 	return (
+
 		<div className="flex flex-col justity-center items-center text-left g-2">
 			{authMode === "login" && <p className="mb-6 text-center text-gray-500">
 				Sign in to access Contact Dashboard
@@ -123,6 +124,11 @@ const LoginForm = () => {
 					</p>
 
 				</div>}
+				{error !== "" && (
+					<p className="text-red-500 text-center">
+						User is not registered
+					</p>
+				)}
 			</form >
 		</div >
 	);

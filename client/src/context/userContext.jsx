@@ -31,6 +31,8 @@ export const UserProvider = ({ children }) => {
 			localStorage.setItem("token", result.token);
 		} catch (error) {
 			setError(error.message);
+			return false;
+
 		} finally {
 			setLoading(false);
 		}
@@ -48,6 +50,8 @@ export const UserProvider = ({ children }) => {
 			localStorage.setItem("token", result.token);
 		} catch (error) {
 			setError(error.message);
+			return false;
+
 		} finally {
 			setLoading(false);
 		}

@@ -23,12 +23,13 @@ export const loginUser = async (payload) => {
 		},
 		body: JSON.stringify(payload),
 	});
-
-	if (!result.ok) {
-		throw new Error("Login failed.");
-	}
 	const data = await result.json();
 	console.log("current user is: ", data);
+
+	if (!result.ok) {
+		throw new Error(data.message || "Login failed.");
+	}
+
 	return data.data;
 };
 
@@ -40,10 +41,9 @@ export const registerUser = async (payload) => {
 		},
 		body: JSON.stringify(payload),
 	});
-
-	if (!result.ok) {
-		throw new Error("Register failed.");
-	}
 	const data = await result.json();
+	if (!result.ok) {
+		throw new Error(data.message || "Register failed.");
+	}
 	return data.data;
 };
