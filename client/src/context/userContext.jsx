@@ -5,19 +5,26 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [authLoading, setAuthLoading] = useState(true);
 	const [error, setError] = useState("");
 	useEffect(() => {
 		const savedUser = localStorage.getItem("currentUser");
+		const savedToken = localStorage.getItem("token");
 
-		if (savedUser) {
+		if (savedUser && savedToken) {
 			setCurrentUser(JSON.parse(savedUser));
 		}
+		setAuthLoading(false);
+
 	}, []);
+
 	const login = async (payload) => {
 		try {
 			setError("");
 			setLoading(true);
+
 			const result = await loginUser(payload);
+
 			console.log("Logined in user are: ", result);
 			setCurrentUser(result.user);
 			localStorage.setItem("currentUser", JSON.stringify(result.user));
@@ -39,6 +46,7 @@ export const UserProvider = ({ children }) => {
 	const values = {
 		currentUser,
 		loading,
+		authLoading,
 		error,
 		login,
 		logOut

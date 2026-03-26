@@ -69,7 +69,7 @@ export const deleteContactById = async (contactId) => {
 
 export const onSearch = async (userId, searchParams) => {
 	const query = new URLSearchParams(searchParams).toString();
-	const result = await fetch(`api/contacts/${userId}/search?${query}`, {
+	const result = await fetch(`/api/contacts/${userId}/search?${query}`, {
 		method: "GET",
 		headers: {
 			"Authorization": `Bearer ${getToken()}`,

@@ -5,6 +5,11 @@ import ContactCard from "./ContactCard.jsx";
 
 const ContactList = () => {
 	const { contacts, loading, error } = useContact();
+	const { authLoading } = useUser();
+
+
+
+	if (authLoading) return <p>Restoring session...</p>;
 
 	if (loading) return <p>Loading contacts...</p>;
 	if (error) return <p>{error}</p>;

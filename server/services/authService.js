@@ -11,19 +11,6 @@ export const getUserByEmail = async (email) => {
 	return rows[0];
 };
 
-// export const findOrCreateUser = async (name, email) => {
-// 	console.log("Server: looking for the user", name);
-// 	const existingUser = await getUserByEmail(email);
-// 	console.log("Server: find existing user", email);
-
-// 	if (existingUser) {
-// 		console.log("User exist", existingUser);
-// 		return existingUser;
-// 	}
-// 	const newUser = await registerUser(name, email);
-// 	console.log("New user created: ", newUser);
-// 	return newUser;
-// };
 
 export const createUser = async (name, email) => {
 	console.log("In createUser func")

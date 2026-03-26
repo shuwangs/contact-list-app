@@ -12,6 +12,7 @@ const Dashboard = () => {
 	const { fetchContacts, contacts } = useContact();
 	const [showForm, setShowForm] = useState(false);
 	const navigator = useNavigate();
+
 	useEffect(() => {
 		const loadContacts = async () => {
 			if (!currentUser?.id) return;
@@ -30,17 +31,10 @@ const Dashboard = () => {
 		logOut();
 		navigator('/');
 	}
-	useEffect(() => {
-		console.log("Contacts updated: ", currentUser);
-	}, [currentUser]);
 
-	useEffect(() => {
-		console.log("showForm:", showForm);
-	}, [showForm]);
-
-	useEffect(() => {
-		console.log("Contacts updated: ", contacts);
-	}, [contacts]);
+	if (!currentUser) {
+		return <p>Loading user...</p>;
+	}
 	return (
 		<div className="flex flex-col text-2xl m-16">
 			<div className="flex flex-row mt-16 mb-8 justify-between items-center">
