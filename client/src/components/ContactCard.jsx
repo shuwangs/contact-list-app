@@ -1,12 +1,10 @@
-import React from "react";
+import { TbUrgent } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useContact } from "../context/contactContext";
-import { useUser } from "../context/userContext";
 import { getInitials } from "../utils/getInitials";
-import { TbUrgent } from "react-icons/tb";
 
 const ContactCard = ({ contact }) => {
-	const { selectedContact, setSeletedContact, deleteContact } = useContact();
+	const { setSeletedContact, deleteContact } = useContact();
 	return (
 		<div className="rounded-xl border flex flex-row align-center justify-between px-10 py-4">
 			<div className="flex flex-row gap-4">
@@ -25,16 +23,9 @@ const ContactCard = ({ contact }) => {
 			<div className="flex flex-row justify-center items-center align-center gap-6 text-4xl">
 				{contact.is_emergency_contact && <TbUrgent />}
 				<Link to="/profile">
-					<button
-						onClick={() => setSeletedContact(contact)}
-
-					>
-						👀
-					</button>
+					<button type="button" onClick={() => setSeletedContact(contact)}>👀</button>
 				</Link>
-				<button onClick={() => deleteContact(contact.id)}>
-					🗑️
-				</button>
+				<button onClick={() => deleteContact(contact.id)}>🗑️</button>
 			</div>
 		</div>
 	);

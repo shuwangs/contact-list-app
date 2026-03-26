@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { loginUser, registerUser } from "../api/loginApi.js";
+
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -15,7 +16,6 @@ export const UserProvider = ({ children }) => {
 			setCurrentUser(JSON.parse(savedUser));
 		}
 		setAuthLoading(false);
-
 	}, []);
 
 	const login = async (payload) => {
@@ -29,11 +29,9 @@ export const UserProvider = ({ children }) => {
 			localStorage.setItem("currentUser", JSON.stringify(result.user));
 			localStorage.setItem("token", result.token);
 			return true;
-
 		} catch (error) {
 			setError(error.message);
 			return false;
-
 		} finally {
 			setLoading(false);
 		}
@@ -52,7 +50,6 @@ export const UserProvider = ({ children }) => {
 		} catch (error) {
 			setError(error.message);
 			return false;
-
 		} finally {
 			setLoading(false);
 		}
@@ -63,7 +60,7 @@ export const UserProvider = ({ children }) => {
 		setError("");
 		localStorage.removeItem("currentUser");
 		localStorage.removeItem("token");
-	}
+	};
 
 	const values = {
 		currentUser,
@@ -72,7 +69,7 @@ export const UserProvider = ({ children }) => {
 		error,
 		login,
 		register,
-		logOut
+		logOut,
 	};
 
 	return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

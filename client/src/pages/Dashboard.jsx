@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import SearchBar from "../components/SearchBar.jsx";
-import ContactList from "../components/ContactList.jsx";
-import { useUser } from "../context/userContext.jsx";
-import { useContact } from "../context/contactContext.jsx";
-import ContactForm from "../components/ContactForm.jsx";
+import React, { useEffect, useState } from "react";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import ContactForm from "../components/ContactForm.jsx";
+import ContactList from "../components/ContactList.jsx";
+import SearchBar from "../components/SearchBar.jsx";
+import { useContact } from "../context/contactContext.jsx";
+import { useUser } from "../context/userContext.jsx";
 
 const Dashboard = () => {
 	const { currentUser, logOut } = useUser();
@@ -29,8 +29,8 @@ const Dashboard = () => {
 
 	const handleLogOut = () => {
 		logOut();
-		navigator('/');
-	}
+		navigator("/");
+	};
 
 	if (!currentUser) {
 		return <p>Loading user...</p>;
@@ -40,7 +40,9 @@ const Dashboard = () => {
 			<div className="flex flex-row mt-16 mb-8 justify-between items-center">
 				<div className="flex flex-row items-center gap-4">
 					<RiContactsBook2Line />
-					<h1 className="text-3xl text-[#f07167] font-bold">Hello, {currentUser.name}</h1>
+					<h1 className="text-3xl text-[#f07167] font-bold">
+						Hello, {currentUser.name}
+					</h1>
 				</div>
 
 				<button onClick={handleLogOut}>Log Out</button>
@@ -48,9 +50,12 @@ const Dashboard = () => {
 
 			<div className="flex flex-row justify-between mb-8 gap-4 ">
 				<SearchBar />
-				<button onClick={() => setShowForm(true)}
+				<button
+					onClick={() => setShowForm(true)}
 					className="rounded-md border-2 bg-[#00afb9] text-[#fed9b7] px-4"
-				>Add Contact</button>
+				>
+					Add Contact
+				</button>
 			</div>
 			{showForm && (
 				<div className="mt-4">

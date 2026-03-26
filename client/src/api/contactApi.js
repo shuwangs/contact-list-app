@@ -1,12 +1,12 @@
-import { getToken } from "../utils/getToken";
+import { getToken } from "../utils/getToken.js";
 
 export const getContacts = async (userId) => {
 	console.log("IN contactApi userId is: ", userId);
 	const result = await fetch(`/api/contacts/users/${userId}`, {
 		method: "GET",
 		headers: {
-			"Authorization": `Bearer ${getToken()}`,
-		}
+			Authorization: `Bearer ${getToken()}`,
+		},
 	});
 
 	if (!result.ok) {
@@ -23,7 +23,7 @@ export const createContact = async (newContact) => {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": `Bearer ${getToken()}`,
+			Authorization: `Bearer ${getToken()}`,
 		},
 		body: JSON.stringify(newContact),
 	});
@@ -40,7 +40,7 @@ export const updateContactById = async (contactId, updatedContact) => {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": `Bearer ${getToken()}`,
+			Authorization: `Bearer ${getToken()}`,
 		},
 		body: JSON.stringify(updatedContact),
 	});
@@ -56,8 +56,8 @@ export const deleteContactById = async (contactId) => {
 	const result = await fetch(`/api/contacts/${contactId}`, {
 		method: "DELETE",
 		headers: {
-			"Authorization": `Bearer ${getToken()}`,
-		}
+			Authorization: `Bearer ${getToken()}`,
+		},
 	});
 
 	if (!result.ok) {
@@ -72,14 +72,12 @@ export const onSearch = async (userId, searchParams) => {
 	const result = await fetch(`/api/contacts/${userId}/search?${query}`, {
 		method: "GET",
 		headers: {
-			"Authorization": `Bearer ${getToken()}`,
-		}
-	}
-
-	);
+			Authorization: `Bearer ${getToken()}`,
+		},
+	});
 	if (!result.ok) {
 		throw new Error("Failed to Search.");
 	}
 	const data = await result.json();
 	return data;
-}
+};

@@ -1,4 +1,3 @@
-
 export const loginUser = async (payload) => {
 	const result = await fetch("/api/auth/login", {
 		method: "POST",

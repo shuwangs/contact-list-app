@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../context/userContext.jsx";
-import { useContact } from "../context/contactContext.jsx";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useContact } from "../context/contactContext.jsx";
+import { useUser } from "../context/userContext.jsx";
 import { validateForm } from "../utils/validateForm.js";
 import ContactFormDiv from "./ui/ContactFormDiv.jsx";
 import FormDiv from "./ui/FormDiv.jsx";
-import FormLabel from "./ui/FormLabel.jsx";
 import FormInput from "./ui/FormInput.jsx";
+import FormLabel from "./ui/FormLabel.jsx";
 
 const ContactForm = ({ closeForm, initialData, mode }) => {
 	const { currentUser } = useUser();
@@ -76,15 +76,18 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center">
 			<div className="relative w-full max-w-2xl rounded-2xl border-2 bg-[#edf5f3] px-10 py-8 shadow-xl">
-				<div className="flex justify-between font-bold text-[#0081a7] pb-5" >
-					{mode === "new" ? <h3 >Add New Contact</h3> : <h3>Edit Contact</h3>}
+				<div className="flex justify-between font-bold text-[#0081a7] pb-5">
+					{mode === "new" ? <h3>Add New Contact</h3> : <h3>Edit Contact</h3>}
 					<button onClick={closeForm} className=" top-3 right-3 text-3xl ">
 						<IoMdCloseCircleOutline />
 					</button>
 				</div>
 
-				<div >
-					<form onSubmit={handleSubmit} className="flex flex-col mx-auto max-w-2xl gap-4">
+				<div>
+					<form
+						onSubmit={handleSubmit}
+						className="flex flex-col mx-auto max-w-2xl gap-4"
+					>
 						<div className="flex flex-row gap-6 border-3 border-[#0081a7] rounded-xl py-4 justify-around bg-[#fdfcdc]">
 							{/* First name */}
 							<FormDiv className="border-2 border-[#00afb9]">
@@ -124,7 +127,8 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 								id="email"
 								name="email"
 								value={formData.email}
-								onChange={handleChange} />
+								onChange={handleChange}
+							/>
 						</ContactFormDiv>
 						<ContactFormDiv>
 							<label htmlFor="phoneNumber">Phone</label>
@@ -150,17 +154,13 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 									checked={formData.isEmergencyContact}
 									onChange={handleChange}
 								/>
-
 							</label>
 						</ContactFormDiv>
 
 						<ContactFormDiv>
 							<label htmlFor="tag">
 								Group
-
-								<select name="tag"
-									value={formData.tag}
-									onChange={handleChange}>
+								<select name="tag" value={formData.tag} onChange={handleChange}>
 									<option value="">Assign to a group</option>
 									<option value="friend">friend</option>
 									<option value="family">family</option>
@@ -199,10 +199,8 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 						{error && <p>{error}</p>}
 					</form>
 				</div>
-
-			</div >
-
-		</div >
+			</div>
+		</div>
 	);
 };
 

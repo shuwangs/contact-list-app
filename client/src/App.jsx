@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { UserProvider } from "./context/userContext.jsx";
-import { ContactProvider } from "./context/contactContext.jsx";
-import ContactProfile from "./pages/ContactProfile.jsx";
-import LoginIn from "./pages/LoginPage.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./components/ui/MainLayout.jsx";
+import { ContactProvider } from "./context/contactContext.jsx";
+import { UserProvider } from "./context/userContext.jsx";
+import ContactProfile from "./pages/ContactProfile.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import LoginIn from "./pages/LoginPage.jsx";
 import "./App.css";
 
 function App() {

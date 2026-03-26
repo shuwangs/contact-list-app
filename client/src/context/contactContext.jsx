@@ -1,19 +1,19 @@
 import React, {
-	useEffect,
-	useState,
-	useContext,
-	createContext,
 	Children,
+	createContext,
+	useContext,
+	useEffect,
 	useReducer,
+	useState,
 } from "react";
-import { contactReducer, initialContactState } from "./contactReducer";
 import {
-	getContacts,
-	updateContactById,
 	createContact,
 	deleteContactById,
+	getContacts,
 	onSearch,
+	updateContactById,
 } from "../api/contactApi.js";
+import { contactReducer, initialContactState } from "./contactReducer";
 
 const ContactContext = createContext();
 
@@ -29,7 +29,6 @@ export const ContactProvider = ({ children }) => {
 			const result = await getContacts(userId);
 
 			dispatch({ type: "SET_CONTACTS", payload: result });
-
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {
@@ -71,7 +70,6 @@ export const ContactProvider = ({ children }) => {
 			dispatch({ type: "SET_ERROR" });
 			const result = await deleteContactById(contactId);
 			dispatch({ type: "DELETE_CONTACT", payload: result.data.id });
-
 		} catch (error) {
 			dispatch({ type: "SET_ERROR", payload: error.message });
 		} finally {
@@ -90,7 +88,6 @@ export const ContactProvider = ({ children }) => {
 			dispatch({ type: "SET_CONTACTS", payload: result });
 		} catch (err) {
 			dispatch({ type: "SET_ERROR", payload: err.message || "Unknown error" });
-
 		} finally {
 			dispatch({ type: "SET_LOADING", payload: false });
 		}

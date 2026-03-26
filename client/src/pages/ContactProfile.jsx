@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useContact } from "../context/contactContext";
-import ContactForm from "../components/ContactForm.jsx";
-import { getInitials } from "../utils/getInitials.js";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
+import { Link, useParams } from "react-router-dom";
+import ContactForm from "../components/ContactForm.jsx";
+import { useContact } from "../context/contactContext";
+import { getInitials } from "../utils/getInitials.js";
+
 const ContactProfile = () => {
 	const mockContact = {
 		id: 1,
@@ -21,7 +22,6 @@ const ContactProfile = () => {
 
 	return (
 		<div className="mx-auto max-w-[500px] font-medium py-20">
-
 			<div className="text-xl ">
 				<Link to="/dashboard">
 					<button className="flex items-center gap-2 text-[#00afb9]">
@@ -49,7 +49,9 @@ const ContactProfile = () => {
 				<div className="space-y-4 text-left">
 					<div>
 						<h3 className="text-xl text-[#0081a7] font-bold">Email</h3>
-						<p className="text-md text-[#f07167] font-semibold">{selectedContact.email || "No email"}</p>
+						<p className="text-md text-[#f07167] font-semibold">
+							{selectedContact.email || "No email"}
+						</p>
 					</div>
 
 					<div>
@@ -83,7 +85,6 @@ const ContactProfile = () => {
 					>
 						<RiEdit2Line /> Edit
 					</button>
-
 				</div>
 				{showForm && (
 					<ContactForm
@@ -93,11 +94,7 @@ const ContactProfile = () => {
 					/>
 				)}
 			</div>
-
-
-
 		</div>
-
 	);
 };
 
