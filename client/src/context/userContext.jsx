@@ -29,6 +29,8 @@ export const UserProvider = ({ children }) => {
 			setCurrentUser(result.user);
 			localStorage.setItem("currentUser", JSON.stringify(result.user));
 			localStorage.setItem("token", result.token);
+			return true;
+
 		} catch (error) {
 			setError(error.message);
 			return false;

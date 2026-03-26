@@ -29,7 +29,7 @@ const LoginForm = () => {
 
 		if (authMode === "login") {
 			success = await login(formData);
-			console.log("User submit the login form");
+			console.log("User submit the login form", success);
 		} else {
 			success = await register(formData);
 		}
