@@ -68,10 +68,10 @@ router.put("/:contactId", async (req, res) => {
             message: "invalid request",
         });
     }
-    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes } = req.body;
+    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes, tag } = req.body;
 
     try {
-        const result = await contactService.updateContact(id, firstName, lastName, email, phoneNumber, isEmergencyContact, notes);
+        const result = await contactService.updateContact(id, firstName, lastName, email, phoneNumber, isEmergencyContact, notes, tag);
         console.log("In contactRoute, after update contact, the result is: ", result);
         res.status(200).json({
             status: "success",
