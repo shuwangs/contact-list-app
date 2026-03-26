@@ -1,71 +1,68 @@
-# Contact List
+# Contact List App
 
 A full-stack contact management application built with **PostgreSQL, Express, React, and Node.js (PERN)**.
 
-This app allows users to log in, manage their personal contacts, and perform full CRUD operations in a clean and intuitive interface.
-
+This app enables users to securely manage their personal contacts with authentication, search functionality, and a clean UI.
 ---
+## Demo
+![Contact List App Demo](./docs/contact_app.gif)
 
 ## 🚀 Features
 
-- User login (lightweight authentication)
+### 🔐 Authentication
+- JWT-based login & registration
+- Protected API routes with middleware
+- Persistent session using localStorage
+### 👤 Contact Management
 - View all contacts
-- Create a new contact
-- Edit contact information
-- Delete contacts
-- View individual contact details
+- Create, edit, and delete contacts
+- View detailed contact profile
 - Mark emergency contacts
-- Global state management using **React Context + useReducer**
+### 🔎 Search
+- Keyword-based contact search
 
+### ⚛️ State Management
+- Global state using React Context + useReducer
+  
 ---
-## Tech Stack
+
+## 🧱 Tech Stack
+### Frontend
+- React
+- Context API + useReducer
+- TailwindCSS
+### Backend
 - Node.js
 - Express.js
 - PostgreSQL
-- TailwindCSS
-
-
-## 🗄️ Database Design
-
-The database consists of two main tables:
-
-### Users
-- id (PK)
-- name
-- email
-
-### Contacts
-- id (PK)
-- user_id (FK → users.id)
-- first_name
-- last_name
-- phone_number
-- email
-- notes
-- is_emergency_contact
-- created_at
-
-### Relationships
-
-- One user can have multiple contacts (1:N)
-- Each contact belongs to one user
+### Authentication
+- JSON Web Token (JWT)
 
 ## Technical Highlights
-![View Design](docs/image.png)
-
+- Designed RESTful APIs with Express
+- Implemented JWT authentication and request validation
+- Used PostgreSQL relational modeling with JOIN operations
+- Built reusable UI components with TailwindCSS
+- Managed complex UI state using reducer pattern
+- Implemented full CRUD + search
 
 ## Setup Instructions
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/shuwangs/contact-list-app.git
-
-cd contact-list/server
+cd contact-list-app
 ```
 
 ### 2. Install dependencies
 
-`npm install`
+```bash
+cd server
+npm install
+
+cd ../client
+npm install
+```
 
 ### 3. Create environment variables
 
@@ -75,22 +72,37 @@ Copy `.env.example` to `.env`
 
 Update the database settings.
 
-### 4. Create database
+### 4. Setup database
 
-createdb your_database_name
-
-### 5. Restore database dump
-
-psql -d your_database_name -f db/db_dump.sql
+```bash
+createdb contact_db
+psql -d contact_db -f server/db/schema.sql
+psql -d contact_db -f server/db/seed.sql
+```
 
 ### 6. Start the server
+```bash
+# server
+cd server
+npm run dev
 
-`npm run dev`
-
+# client
+cd client
+npm run dev
+```
+🧪 How to Use
+- Register or log in
+- Add new contacts
+- Edit or delete contacts
+- Search contacts by keyword
+- Refresh page → session persists
 
 ## 🌱 Future Improvements
-- Add search and filter functionality
-- Implement full authentication (JWT or cookies)
+- Role-based authentication
+Pagination & advanced filtering
+Deployment (Docker / CI-CD)
+File upload (profile images)
+Mobile responsiveness improvements
 
 
 ## Author
