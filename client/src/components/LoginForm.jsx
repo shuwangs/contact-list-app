@@ -29,6 +29,7 @@ const LoginForm = () => {
 			console.log("User submit the login form", success);
 		} else {
 			success = await register(formData);
+			console.log("Registered user status is : ", success)
 		}
 
 		if (success) {
