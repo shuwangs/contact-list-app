@@ -17,10 +17,11 @@ export const UserProvider = ({ children }) => {
 		try {
 			setError("");
 			setLoading(true);
-			const user = await loginUser(payload);
-			console.log("Logined in user are: ", user);
-			setCurrentUser(user);
-			localStorage.setItem("currentUser", JSON.stringify(user));
+			const result = await loginUser(payload);
+			console.log("Logined in user are: ", result);
+			setCurrentUser(result.user);
+			localStorage.setItem("currentUser", JSON.stringify(result.user));
+			localStorage.setItem("token", result.token);
 		} catch (error) {
 			setError(error.message);
 		} finally {
@@ -32,6 +33,7 @@ export const UserProvider = ({ children }) => {
 		setCurrentUser(null);
 		setError("");
 		localStorage.removeItem("currentUser");
+		localStorage.removeItem("token");
 	}
 
 	const values = {
