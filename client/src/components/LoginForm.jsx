@@ -18,13 +18,10 @@ const LoginForm = () => {
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
-
-		console.log("user entered is: ", formData);
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log("formData to submit", formData);
 		let success = false;
 
 		if (authMode === "login") {

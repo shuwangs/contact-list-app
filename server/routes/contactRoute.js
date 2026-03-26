@@ -14,6 +14,7 @@ router.get("/users/:userId", async (req, res) => {
 
     try {
         const result = await contactService.getContactsByUserId(userId);
+        console.log("result in the contact service is: ", result);
         res.status(200).json({
             status: "success",
             data: result,
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
     console.log("In contactRoute...");
     console.log("Request body is: ", req.body);
 
-    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes } = req.body;
+    const { userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes, tag } = req.body;
     if (!firstName) {
         return res.status(400).json({
             status: "fail",
@@ -41,7 +42,7 @@ router.post("/", async (req, res) => {
     }
 
     try {
-        const result = await contactService.addContact(userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes);
+        const result = await contactService.addContact(userId, firstName, lastName, email, phoneNumber, isEmergencyContact, notes, tag);
         console.log("In contactRoute, after add contact, the result is: ", result);
         res.status(201).json({
             status: "success",

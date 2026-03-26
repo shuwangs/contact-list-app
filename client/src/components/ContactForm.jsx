@@ -19,6 +19,7 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 		phoneNumber: "",
 		isEmergencyContact: false,
 		notes: "",
+		tag: "",
 	});
 	const handleChange = (event) => {
 		const { name, value, type, checked } = event.target;
@@ -38,16 +39,12 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 		}
 		try {
 			if (mode === "edit" && initialData?.id) {
-				console.log("editContact before: ", initialData?.id);
 				await editContact(initialData.id, formData);
-				console.log("editContact finished");
 			} else {
 				await addNewContact(currentUser.id, formData);
-				console.log("addNewContact finished");
 			}
 
 			closeForm();
-			console.log("closeForm called");
 		} catch (error) {
 			console.error("submit failed:", error);
 		}
@@ -154,6 +151,23 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 									onChange={handleChange}
 								/>
 
+							</label>
+						</ContactFormDiv>
+
+						<ContactFormDiv>
+							<label htmlFor="tag">
+								Group
+
+								<select name="tag"
+									value={formData.tag}
+									onChange={handleChange}>
+									<option value="">Assign to a group</option>
+									<option value="friend">friend</option>
+									<option value="family">family</option>
+									<option value="coworker">coworker</option>
+									<option value="acquaintance">acquaintance</option>
+									<option value="neighbor">neighbor</option>
+								</select>
 							</label>
 						</ContactFormDiv>
 						<ContactFormDiv>

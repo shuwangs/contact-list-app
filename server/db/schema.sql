@@ -10,6 +10,11 @@ CREATE TABLE users(
     email VARCHAR(50) NOT NULL unique
 );
 
+CREATE TABLE tags(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
 CREATE TABLE contacts(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -21,3 +26,9 @@ CREATE TABLE contacts(
     is_emergency_contact BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE contact_tags (
+    contact_id INTEGER REFERENCES contacts(id) ON DELETE CASCADE,
+    tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE,
+    PRIMARY KEY(contact_id, tag_id)
+)

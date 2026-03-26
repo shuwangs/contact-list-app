@@ -66,9 +66,16 @@ const ContactProfile = () => {
 							{selectedContact.notes || "No notes"}
 						</p>
 					</div>
+					<div>
+						<h3 className="text-xl text-[#0081a7] font-bold">Group</h3>
+
+						<p className="text-md text-[#f07167] font-semibold">
+							{selectedContact.tag || "No group assigned"}
+						</p>
+					</div>
 				</div>
 
-				<div className="mt-6 grid grid-cols-2 gap-4 text-xl text-[#fdfcdc]">
+				<div className="mt-6 grid grid-cols-1 gap-4 text-xl text-[#fdfcdc]">
 					<button
 						onClick={() => setShowForm(true)}
 						className="mt-4 py-2 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]
@@ -76,10 +83,7 @@ const ContactProfile = () => {
 					>
 						<RiEdit2Line /> Edit
 					</button>
-					<button className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#ff9b9b]
-					 bg-[#f07167]  hover:bg-[#fed9b7] hover:text-[#00afb9]">
-						<RiDeleteBin5Line className="text-xl" /> Delete
-					</button>
+
 				</div>
 				{showForm && (
 					<ContactForm
