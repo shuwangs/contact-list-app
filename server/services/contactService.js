@@ -139,10 +139,8 @@ export const updateContact = async (id, firstName, lastName, email, phoneNumber,
 };
 
 
-export const searchContactsByUserId = async ({ userId, keyword }) => {
-	console.log("Searching in db...");
-	const searchTerm = `% ${keyword.toLowerCase()} % `
-
+export const searchContactsByUserId = async (userId, keyword) => {
+	const searchTerm = `%${keyword.toLowerCase()}%`
 	const { rows } = await pool.query(
 		`SELECT * FROM contact_app.contacts 
 		WHERE user_id = $1

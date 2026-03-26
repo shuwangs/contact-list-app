@@ -127,8 +127,6 @@ router.get('/:userId/search', async (req, res) => {
     try {
         const userId = Number(req.params.userId);
         const { keyword } = req.query;
-        console.log("userid is : ", userId);
-        console.log("searche term  is : ", keyword);
         if (!Number.isInteger(userId) || userId <= 0) {
             return res.status(400).json({ error: "Invalid userId" });
         }
@@ -136,7 +134,8 @@ router.get('/:userId/search', async (req, res) => {
         if (!keyword || !keyword.trim()) {
             return res.status(400).json({ error: "Search keyword is required" });
         }
-        const result = await contactService.searchContactsByUserId({ userId, keyword });
+
+        const result = await contactService.searchContactsByUserId(userId, keyword);
         res.status(200).json(result);
 
     } catch (err) {
