@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoute);
 
-app.use(authenticateToken)
+app.use(authenticateToken);
 
 app.use("/api/users", userRoute);
 app.use("/api/contacts", contactRoute);

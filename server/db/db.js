@@ -1,4 +1,4 @@
-import {Pool} from 'pg';
+import { Pool } from "pg";
 import dotenv from "dotenv";
 // import pkg from "pg";
 
@@ -11,8 +11,9 @@ const pool = new Pool({
 	port: process.env.PGPORT,
 });
 
-pool.connect()
-  .then(() => console.log("Database connected successfully"))
-  .catch((err) => console.error("Database connection error:", err));
-  
+pool
+	.connect()
+	.then(() => console.log("Database connected successfully"))
+	.catch((err) => console.error("Database connection error:", err));
+
 export default pool;

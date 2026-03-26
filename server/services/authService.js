@@ -11,9 +11,8 @@ export const getUserByEmail = async (email) => {
 	return rows[0];
 };
 
-
 export const createUser = async (name, email) => {
-	console.log("In createUser func")
+	console.log("In createUser func");
 	const { rows } = await pool.query(
 		`INSERT INTO contact_app.users(name, email)
 		 VALUES ($1, $2)

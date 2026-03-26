@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as authService from "../services/authService.js";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
 
 	try {
 		const newUser = await authService.registerUser(name, email);
-		console.log("In register, result after authService..", newUser)
+		console.log("In register, result after authService..", newUser);
 		// Create JWT tokens
 		const token = jwt.sign(
 			{
@@ -27,9 +27,9 @@ router.post("/register", async (req, res) => {
 				name: newUser.name,
 			},
 			process.env.JWT_SECRET,
-			{ expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+			{ expiresIn: process.env.JWT_EXPIRES_IN || "1h" },
 		);
-		console.log("tokens are: ", token)
+		console.log("tokens are: ", token);
 		res.status(201).json({
 			status: "success",
 			data: {
@@ -64,20 +64,19 @@ router.post("/login", async (req, res) => {
 		// Create JWT tokens
 		const token = jwt.sign(user, process.env.JWT_SECRET, {
 			expiresIn: process.env.JWT_EXPIRES_IN || "1h",
-		})
+		});
 
 		res.status(200).json({
-			status: 'Login successful',
+			status: "Login successful",
 			data: {
 				user,
 				token,
 			},
 		});
-
 	} catch (error) {
 		res.status(401).json({
 			status: "fail",
-			message: 'Invalid credentials',
+			message: "Invalid credentials",
 		});
 	}
 });
