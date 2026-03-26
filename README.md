@@ -3,6 +3,7 @@
 A full-stack contact management application built with **PostgreSQL, Express, React, and Node.js (PERN)**.
 
 This app enables users to securely manage their personal contacts with authentication, search functionality, and a clean UI.
+
 ---
 ## Demo
 ![Contact List App Demo](./docs/contact_app.gif)
@@ -80,7 +81,7 @@ psql -d contact_db -f server/db/schema.sql
 psql -d contact_db -f server/db/seed.sql
 ```
 
-### 6. Start the server
+### 5. Start the server
 ```bash
 # server
 cd server
@@ -90,7 +91,8 @@ npm run dev
 cd client
 npm run dev
 ```
-🧪 How to Use
+
+## 🧪 How to Use
 - Register or log in
 - Add new contacts
 - Edit or delete contacts
@@ -99,10 +101,9 @@ npm run dev
 
 ## 🌱 Future Improvements
 - Role-based authentication
-Pagination & advanced filtering
-Deployment (Docker / CI-CD)
-File upload (profile images)
-Mobile responsiveness improvements
+- Pagination & advanced filtering
+- Deployment 
+- Mobile responsiveness improvements
 
 
 ## Author
