@@ -40,7 +40,15 @@ const LoginForm = () => {
 	};
 
 	return (
-		<div className="flex justity-center items-center text-left g-2">
+		<div className="flex flex-col justity-center items-center text-left g-2">
+			{authMode === "login" && <p className="mb-6 text-center text-gray-500">
+				Sign in to access Contact Dashboard
+			</p>
+			}
+			{authMode === "register" && <p className="mb-6 text-center text-gray-500">
+				Start Register !
+			</p>
+			}
 			<form onSubmit={handleSubmit} className=" w-full space-y-5">
 				<div className="form-item">
 					<FormLabel htmlFor="name">Name</FormLabel>
