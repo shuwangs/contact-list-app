@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../context/userContext.jsx";
 import { useContact } from "../context/contactContext.jsx";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { validateForm } from "../utils/validateForm.js";
 import ContactFormDiv from "./ui/ContactFormDiv.jsx";
 import FormDiv from "./ui/FormDiv.jsx";
 import FormLabel from "./ui/FormLabel.jsx";
@@ -9,7 +10,7 @@ import FormInput from "./ui/FormInput.jsx";
 
 const ContactForm = ({ closeForm, initialData, mode }) => {
 	const { currentUser } = useUser();
-	const { addNewContact, editContact, loading, error } = useContact();
+	const { addNewContact, editContact, loading, error, setError } = useContact();
 	const [formData, setFormData] = useState({
 		userId: currentUser.id,
 		firstName: "",
@@ -30,7 +31,11 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+		const validationErrors = validateForm(formData);
+		if (Object.keys(validationErrors).length > 0) {
+			setError(validationErrors);
+			return;
+		}
 		try {
 			if (mode === "edit" && initialData?.id) {
 				console.log("editContact before: ", initialData?.id);
@@ -131,6 +136,9 @@ const ContactForm = ({ closeForm, initialData, mode }) => {
 								id="phoneNumber"
 								name="phoneNumber"
 								value={formData.phoneNumber}
+								type="tel"
+								placeholder="123-456-7890"
+								pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 								onChange={handleChange}
 							/>
 						</ContactFormDiv>
