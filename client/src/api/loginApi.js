@@ -31,3 +31,19 @@ export const loginUser = async (payload) => {
 	console.log("current user is: ", data);
 	return data.data;
 };
+
+export const registerUser = async (payload) => {
+	const result = await fetch("/api/auth/register", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(payload),
+	});
+
+	if (!result.ok) {
+		throw new Error("Register failed.");
+	}
+	const data = await result.json();
+	return data.data;
+};

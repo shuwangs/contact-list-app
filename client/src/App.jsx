@@ -19,6 +19,7 @@ function App() {
 								<Route path="/" element={<LoginIn />} />
 								<Route path="/dashboard" element={<Dashboard />} />
 								<Route path="/profile" element={<ContactProfile />} />
+								<Route path="/register" element={<LoginIn />} />
 							</Routes>
 						</MainLayout>
 					</div>

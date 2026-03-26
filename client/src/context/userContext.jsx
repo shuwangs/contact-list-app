@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { loginUser } from "../api/loginApi.js";
+import { loginUser, registerUser } from "../api/loginApi.js";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -35,6 +35,23 @@ export const UserProvider = ({ children }) => {
 			setLoading(false);
 		}
 	};
+	const register = async (payload) => {
+		try {
+			setError("");
+			setLoading(true);
+
+			const result = await registerUser(payload);
+
+			console.log("registered in user are: ", result);
+			setCurrentUser(result.newUser);
+			localStorage.setItem("currentUser", JSON.stringify(result.newUser));
+			localStorage.setItem("token", result.token);
+		} catch (error) {
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	const logOut = () => {
 		setCurrentUser(null);
@@ -49,6 +66,7 @@ export const UserProvider = ({ children }) => {
 		authLoading,
 		error,
 		login,
+		register,
 		logOut
 	};
 

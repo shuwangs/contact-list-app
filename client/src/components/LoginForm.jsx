@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useUser } from "../context/userContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import FormLabel from "./ui/FormLabel.jsx";
 import FormInput from "./ui/FormInput.jsx";
 import FormBtn from "./ui/FormBtn.jsx";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 const LoginForm = () => {
-	const { loading, error, login } = useUser();
+	const { loading, error, login, register } = useUser();
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 	});
+	const [authMode, setAuthMode] = useState("login")
 	const navigate = useNavigate();
 
 	const handleChange = (event) => {
@@ -20,12 +21,17 @@ const LoginForm = () => {
 
 		console.log("user entered is: ", formData);
 	};
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		console.log("formData to submit", formData);
 		try {
-			await login(formData);
-			console.log("User submit the login form");
+			if (authMode === "login") {
+				await login(formData);
+				console.log("User submit the login form");
+			} else {
+				await register(formData)
+			}
 
 			navigate("/dashboard");
 		} catch (error) {
@@ -60,7 +66,7 @@ const LoginForm = () => {
 					/>
 				</div>
 
-				<div>
+				{authMode === "login" && <div>
 					<FormBtn
 						className="flex items-center gap-2 justify-center"
 						type="submit"
@@ -69,13 +75,48 @@ const LoginForm = () => {
 							"Loading..."
 						) : (
 							<>
-								Continue <FaLongArrowAltRight />
+								Login <FaLongArrowAltRight />
 							</>
 						)}
 					</FormBtn>
-				</div>
-			</form>
-		</div>
+					<p className="text-center pt-2">No account yet?
+						<button onClick={() => setAuthMode("register")} className="pl-2 ">
+							<Link to="/register" className="text-blue-500 underline">
+								Register here
+							</Link>
+						</button>
+					</p>
+
+				</div>}
+
+
+				{/* Register */}
+				{authMode === "register" && <div>
+					<FormBtn
+						className="flex items-center gap-2 justify-center"
+						type="submit"
+
+					>
+						{loading ? (
+							"Registering..."
+						) : (
+							<>
+								Register <FaLongArrowAltRight />
+							</>
+						)}
+					</FormBtn>
+					<p className="text-center pt-2">Got an account already?
+						<button className="pl-2"
+							onClick={() => setAuthMode("login")}>
+							<Link to="/" className="text-blue-500 underline">
+								Login here
+							</Link>
+						</button>
+					</p>
+
+				</div>}
+			</form >
+		</div >
 	);
 };
 

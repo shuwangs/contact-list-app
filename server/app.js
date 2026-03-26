@@ -10,7 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
-app.use("/api/users", authenticateToken, userRoute);
-app.use("/api/contacts", authenticateToken, contactRoute);
+
+app.use(authenticateToken)
+
+app.use("/api/users", userRoute);
+app.use("/api/contacts", contactRoute);
 
 export default app;
