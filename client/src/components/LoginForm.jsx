@@ -51,6 +51,7 @@ const LoginForm = () => {
 				<div className="form-item">
 					<FormLabel htmlFor="name">Name</FormLabel>
 					<FormInput
+						id="name"
 						name="name"
 						type="text"
 						placeholder="bobo."
@@ -63,6 +64,7 @@ const LoginForm = () => {
 				<div className="form-item">
 					<FormLabel htmlFor="email">User Email</FormLabel>
 					<FormInput
+						id="email"
 						name="email"
 						type="email"
 						placeholder="bobo@example.com"
