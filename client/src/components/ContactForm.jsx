@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useContact } from "../context/contactContext.jsx";
 import { useUser } from "../context/userContext.jsx";
